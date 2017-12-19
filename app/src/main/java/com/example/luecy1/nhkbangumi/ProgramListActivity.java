@@ -26,7 +26,7 @@ public class ProgramListActivity extends AppCompatActivity {
 
         // 通信
         MyAsyncTask task = new MyAsyncTask(
-                "http://api.nhk.or.jp/v2/pg/list/130/g1/2017-12-16.json"
+                "http://api.nhk.or.jp/v2/pg/list/130/g1/"
                 ,adapter
                 ,this.getApplicationContext());
         task.execute();

@@ -11,6 +11,8 @@ import com.example.luecy1.nhkbangumi.entity.ProgramList;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -34,6 +36,13 @@ public class MyAsyncTask extends AsyncTask<Integer, Integer, ProgramList> {
 
     @Override
     protected ProgramList doInBackground(Integer... integers) {
+
+        // 現在日付の取得
+        Date nowDate = new Date();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        String jsonName = simpleDateFormat.format(nowDate) + ".json";
+        url += jsonName;
 
         //APIキーの取得
         String key = "";
