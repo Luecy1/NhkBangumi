@@ -35,6 +35,8 @@ public class ProgramListAdapter extends BaseAdapter {
 
         if (programList == null) {
             return 0;
+        } else if (programList.getList() == null) {
+            return 0;
         } else {
             return programList.getList().getG1().size();
         }
@@ -66,9 +68,10 @@ public class ProgramListAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        convertView = layoutInflater.inflate(R.layout.activity_program_list_entity, parent, false);
+        convertView = layoutInflater.inflate(R.layout.activity_program_list_item, parent, false);
 
         TextView mainText = convertView.findViewById(R.id.entity_mainText);
+        TextView subText = convertView.findViewById(R.id.list_item_subtext);
 
 
         if (programList == null) {
@@ -77,6 +80,9 @@ public class ProgramListAdapter extends BaseAdapter {
 
         String title = programList.getList().getG1().get(position).getTitle();
         mainText.setText(title);
+
+        String startTime = programList.getList().getG1().get(position).getStart_time();
+        subText.setText(startTime);
 
         return convertView;
     }

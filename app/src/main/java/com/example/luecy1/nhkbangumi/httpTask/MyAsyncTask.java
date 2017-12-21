@@ -12,7 +12,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -39,7 +41,14 @@ public class MyAsyncTask extends AsyncTask<Integer, Integer, ProgramList> {
 
         // 現在日付の取得
         Date nowDate = new Date();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.JAPAN);
+
+        // 日本日付
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(nowDate);
+        calendar.add(Calendar.HOUR, 9);
+        nowDate = calendar.getTime();
+
 
         String jsonName = simpleDateFormat.format(nowDate) + ".json";
         url += jsonName;
@@ -88,6 +97,8 @@ public class MyAsyncTask extends AsyncTask<Integer, Integer, ProgramList> {
         if (programList == null) {
             return;
         }
+
+        // TODO:programListの中身をチェック
 
         programListAdapter.setProgramList(programList);
         Log.d("MyApp", "情報を取得しました。");
