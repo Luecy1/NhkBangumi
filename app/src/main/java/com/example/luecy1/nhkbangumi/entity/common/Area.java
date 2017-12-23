@@ -1,4 +1,4 @@
-package com.example.luecy1.nhkbangumi.entity;
+package com.example.luecy1.nhkbangumi.entity.common;
 
 
 public class Area {

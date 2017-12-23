@@ -5,16 +5,17 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.ImageView;
+import android.widget.TextView;
 
-import com.example.luecy1.nhkbangumi.ProgramListAdapter;
-import com.example.luecy1.nhkbangumi.entity.program.ProgramList;
+import com.example.luecy1.nhkbangumi.ProgramDetailActivity;
+import com.example.luecy1.nhkbangumi.R;
+import com.example.luecy1.nhkbangumi.entity.description.Description;
+import com.example.luecy1.nhkbangumi.entity.description.DescriptionList;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -24,34 +25,21 @@ import okhttp3.Response;
  * Created by you on 2017/12/16.
  */
 
-public class MyAsyncTask extends AsyncTask<Integer, Integer, ProgramList> {
+public class DetailAsyncTask extends AsyncTask<Void, Void, DescriptionList> {
 
     private String url;
-    private ProgramListAdapter programListAdapter;
     private Context context;
+    private ProgramDetailActivity activity;
 
-    public MyAsyncTask(String url, ProgramListAdapter programListAdapter, Context context) {
+    public DetailAsyncTask(String url, Context context, ProgramDetailActivity activity) {
         this.url = url;
-        this.programListAdapter = programListAdapter;
         this.context = context;
+        this.activity = activity;
     }
 
     @Override
-    protected ProgramList doInBackground(Integer... integers) {
+    protected DescriptionList doInBackground(Void... params) {
 
-        // 現在日付の取得
-        Date nowDate = new Date();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.JAPAN);
-
-        // 日本日付
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(nowDate);
-        calendar.add(Calendar.HOUR, 9);
-        nowDate = calendar.getTime();
-
-
-        String jsonName = simpleDateFormat.format(nowDate) + ".json";
-        url += jsonName;
 
         //APIキーの取得
         String key = "";
@@ -73,13 +61,13 @@ public class MyAsyncTask extends AsyncTask<Integer, Integer, ProgramList> {
 
         OkHttpClient client = new OkHttpClient();
 
-        ProgramList programList = null;
+        DescriptionList descriptionList = null;
 
         try {
             Response resp = client.newCall(req).execute();
 
             ObjectMapper mapper = new ObjectMapper();
-            programList = mapper.readValue(resp.body().string(), ProgramList.class);
+            descriptionList = mapper.readValue(resp.body().string(), DescriptionList.class);
 
             resp.body().close();
 
@@ -88,21 +76,22 @@ public class MyAsyncTask extends AsyncTask<Integer, Integer, ProgramList> {
             e.printStackTrace();
         }
 
-        return programList;
+        return descriptionList;
     }
 
     @Override
-    protected void onPostExecute(ProgramList programList) {
+    protected void onPostExecute(DescriptionList descriptionList) {
 
-        if (programList == null) {
-            return;
-        }
+        Description description = descriptionList.getList().getG1().get(0);
 
-        // TODO:programListの中身をチェック
+        ImageView logo = activity.findViewById(R.id.program_detail_logo);
+        Picasso.with(context).load("https:" + description.getProgram_logo().getUrl()).into(logo);
 
-        programListAdapter.setProgramList(programList);
-        Log.d("MyApp", "情報を取得しました。");
+        TextView titleView = activity.findViewById(R.id.program_detail_title);
+        titleView.setText(description.getTitle());
 
+        TextView contentView = activity.findViewById(R.id.program_detail_content);
+        contentView.setText(description.getContent());
 
     }
 }

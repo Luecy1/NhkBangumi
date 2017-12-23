@@ -1,10 +1,14 @@
 package com.example.luecy1.nhkbangumi;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -20,7 +24,7 @@ public class ProgramListActivity extends AppCompatActivity {
         // LsitViewのセット
         ListView listView = findViewById(R.id.programListListView);
 
-        ProgramListAdapter adapter = new ProgramListAdapter(ProgramListActivity.this);
+        final ProgramListAdapter adapter = new ProgramListAdapter(ProgramListActivity.this);
 
         listView.setAdapter(adapter);
 
@@ -30,6 +34,24 @@ public class ProgramListActivity extends AppCompatActivity {
                 ,adapter
                 ,this.getApplicationContext());
         task.execute();
+
+        listView.setOnItemClickListener(
+                new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                        if (adapter.getProgramList() == null) {
+                            return;
+                        }
+                        String programId = adapter.getProgramList().getList().getG1().get(position).getId();
+                        Intent detailIntent = new Intent(getApplicationContext(), ProgramDetailActivity.class);
+
+                        detailIntent.putExtra("id",programId);
+                        startActivity(detailIntent);
+
+                    }
+                }
+        );
     }
 
     @Override

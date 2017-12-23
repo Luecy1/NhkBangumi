@@ -1,9 +1,9 @@
-package com.example.luecy1.nhkbangumi.entity;
+package com.example.luecy1.nhkbangumi.entity.description;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown=true)
-public class ProgramList {
+public class DescriptionList {
 
     private List list;
 

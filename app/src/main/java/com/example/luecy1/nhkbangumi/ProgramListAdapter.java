@@ -5,9 +5,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.luecy1.nhkbangumi.entity.ProgramList;
+import com.example.luecy1.nhkbangumi.entity.common.Program;
+import com.example.luecy1.nhkbangumi.entity.program.ProgramList;
+import com.example.luecy1.nhkbangumi.util.CommonUtils;
+import com.squareup.picasso.Picasso;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by you on 2017/12/16.
@@ -28,6 +37,10 @@ public class ProgramListAdapter extends BaseAdapter {
 
         // ListAdapterの更新
         notifyDataSetChanged();
+    }
+
+    public ProgramList getProgramList() {
+        return programList;
     }
 
     @Override
@@ -71,18 +84,34 @@ public class ProgramListAdapter extends BaseAdapter {
         convertView = layoutInflater.inflate(R.layout.activity_program_list_item, parent, false);
 
         TextView mainText = convertView.findViewById(R.id.entity_mainText);
-        TextView subText = convertView.findViewById(R.id.list_item_subtext);
+        TextView subTitle = convertView.findViewById(R.id.list_item_subtitle);
+        TextView programDate = convertView.findViewById(R.id.list_item_subtext);
+
+        ImageView logoImage = convertView.findViewById(R.id.Logo_image);
 
 
         if (programList == null) {
             return null;
         }
 
-        String title = programList.getList().getG1().get(position).getTitle();
-        mainText.setText(title);
+        Program program = programList.getList().getG1().get(position);
 
-        String startTime = programList.getList().getG1().get(position).getStart_time();
-        subText.setText(startTime);
+        mainText.setText(program.getTitle());
+
+        subTitle.setText(program.getSubtitle());
+
+        // 日付変換
+        String startDateString = "";
+        try {
+            Date startDate = CommonUtils.string2Date(program.getStart_time());
+            SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月dd日 ah:mm:ss", Locale.JAPAN);
+            startDateString =  format.format(startDate).toString();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        programDate.setText(startDateString);
+
+        Picasso.with(context).load("https:" + program.getService().getLogo_l().getUrl()).into(logoImage);
 
         return convertView;
     }

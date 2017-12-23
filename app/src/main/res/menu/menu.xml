@@ -6,9 +6,9 @@
 
     <item
         android:id="@+id/menu_home"
-        app:showAsAction="never"
-        android:title="HOME">
-    </item>
+        android:checkable="false"
+        android:title="HOME"
+        app:showAsAction="never"></item>
 
     <item
         android:id="@+id/menu_programList"
@@ -16,5 +16,10 @@
         android:title="番組リスト">
     </item>
 
+    <item
+        android:id="@+id/menu_setting"
+        app:showAsAction="never"
+        android:title="設定">
+    </item>
 
 </menu>

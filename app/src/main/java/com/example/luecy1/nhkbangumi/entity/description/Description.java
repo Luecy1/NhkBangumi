@@ -1,8 +1,13 @@
-package com.example.luecy1.nhkbangumi.entity;
+package com.example.luecy1.nhkbangumi.entity.description;
+
+import com.example.luecy1.nhkbangumi.entity.common.Area;
+import com.example.luecy1.nhkbangumi.entity.common.Extra;
+import com.example.luecy1.nhkbangumi.entity.common.Logo;
+import com.example.luecy1.nhkbangumi.entity.common.Service;
 
 import java.util.List;
 
-public class G1 {
+public class Description {
 
     private String id;
     private String event_id;
@@ -15,6 +20,11 @@ public class G1 {
     private String content;
     private String act;
     private List<String> genres = null;
+    private Logo program_logo;
+    private String program_url;
+    private String episode_url;
+    private List<String> hashtags = null;
+    private Extra extras;
 
     public String getId() {
         return id;
@@ -104,4 +114,43 @@ public class G1 {
         this.genres = genres;
     }
 
+    public Logo getProgram_logo() {
+        return program_logo;
+    }
+
+    public void setProgram_logo(Logo program_logo) {
+        this.program_logo = program_logo;
+    }
+
+    public String getProgram_url() {
+        return program_url;
+    }
+
+    public void setProgram_url(String program_url) {
+        this.program_url = program_url;
+    }
+
+    public String getEpisode_url() {
+        return episode_url;
+    }
+
+    public void setEpisode_url(String episode_url) {
+        this.episode_url = episode_url;
+    }
+
+    public List<String> getHashtags() {
+        return hashtags;
+    }
+
+    public void setHashtags(List<String> hashtags) {
+        this.hashtags = hashtags;
+    }
+
+    public Extra getExtras() {
+        return extras;
+    }
+
+    public void setExtras(Extra extras) {
+        this.extras = extras;
+    }
 }

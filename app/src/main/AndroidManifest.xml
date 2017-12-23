@@ -11,7 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <meta-data android:name="nhkApiKey" android:value="${nhkApiKey}"/>
+        <meta-data
+            android:name="nhkApiKey"
+            android:value="${nhkApiKey}" />
 
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -20,7 +22,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ProgramListActivity"></activity>
+        <activity android:name=".ProgramListActivity" />
+        <activity android:name=".ProgramDetailActivity"></activity>
     </application>
 
 </manifest>

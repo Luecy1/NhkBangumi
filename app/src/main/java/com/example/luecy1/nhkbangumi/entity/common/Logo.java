@@ -1,7 +1,10 @@
-package com.example.luecy1.nhkbangumi.entity;
+package com.example.luecy1.nhkbangumi.entity.common;
 
+/**
+ * Created by you on 2017/12/23.
+ */
 
-public class LogoM {
+public class Logo {
 
     private String url;
     private String width;
@@ -30,5 +33,4 @@ public class LogoM {
     public void setHeight(String height) {
         this.height = height;
     }
-
 }
