@@ -93,13 +93,20 @@ public class DetailAsyncTask extends AsyncTask<Void, Void, DescriptionList> {
         TextView titleView = activity.findViewById(R.id.program_detail_title);
         titleView.setText(description.getTitle());
 
-        TextView contentView = activity.findViewById(R.id.program_detail_content);
+        TextView subtitleView = activity.findViewById(R.id.program_detail_subtitle);
+        String subtitle = description.getSubtitle();
+        if (!"".equals(subtitle)) {
+            subtitleView.setText(subtitle);
+        } else {
+            subtitleView.setText("番組内容なし");
+        }
 
+        TextView contentView = activity.findViewById(R.id.program_detail_content);
         String content = description.getContent();
         if (!"".equals(content)) {
             contentView.setText(content);
         } else {
-            contentView.setText("番組情報なし");
+            contentView.setText("番組詳細なし");
         }
 
         loading.close();
