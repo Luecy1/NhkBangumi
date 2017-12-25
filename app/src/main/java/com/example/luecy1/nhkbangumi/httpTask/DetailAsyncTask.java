@@ -8,6 +8,7 @@ import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.luecy1.nhkbangumi.Loading;
 import com.example.luecy1.nhkbangumi.ProgramDetailActivity;
 import com.example.luecy1.nhkbangumi.R;
 import com.example.luecy1.nhkbangumi.entity.description.Description;
@@ -30,11 +31,13 @@ public class DetailAsyncTask extends AsyncTask<Void, Void, DescriptionList> {
     private String url;
     private Context context;
     private ProgramDetailActivity activity;
+    private Loading loading;
 
-    public DetailAsyncTask(String url, Context context, ProgramDetailActivity activity) {
+    public DetailAsyncTask(String url, Context context, ProgramDetailActivity activity, Loading loading) {
         this.url = url;
         this.context = context;
         this.activity = activity;
+        this.loading = loading;
     }
 
     @Override
@@ -91,7 +94,15 @@ public class DetailAsyncTask extends AsyncTask<Void, Void, DescriptionList> {
         titleView.setText(description.getTitle());
 
         TextView contentView = activity.findViewById(R.id.program_detail_content);
-        contentView.setText(description.getContent());
+
+        String content = description.getContent();
+        if (!"".equals(content)) {
+            contentView.setText(content);
+        } else {
+            contentView.setText("番組情報なし");
+        }
+
+        loading.close();
 
     }
 }

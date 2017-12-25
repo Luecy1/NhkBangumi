@@ -14,6 +14,10 @@ public class ProgramDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_program_detail);
 
+        // Loading
+        Loading loading = new Loading(this);
+        loading.show();
+
         Intent intent = getIntent();
         String id = intent.getStringExtra("id");
 
@@ -22,6 +26,7 @@ public class ProgramDetailActivity extends AppCompatActivity {
                 "http://api.nhk.or.jp/v2/pg/info/130/g1/" + id + ".json"
                 ,this.getApplicationContext()
                 ,this
+                ,loading
         );
         task.execute();
 
