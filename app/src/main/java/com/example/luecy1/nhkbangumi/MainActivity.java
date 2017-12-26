@@ -37,6 +37,12 @@ public class MainActivity extends AppCompatActivity {
                 Intent ListIntent = new Intent(this, ProgramListActivity.class);
                 startActivity(ListIntent);
                 return true;
+
+            case R.id.menu_programGenre:
+                Intent GenreIntent = new Intent(this, ProgramGenreActivity.class);
+                startActivity(GenreIntent);
+                return true;
+
         }
 
         return super.onOptionsItemSelected(item);

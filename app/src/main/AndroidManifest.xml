@@ -23,7 +23,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".ProgramListActivity" />
-        <activity android:name=".ProgramDetailActivity"></activity>
+        <activity android:name=".ProgramDetailActivity" />
+        <activity android:name=".ProgramGenreActivity"></activity>
     </application>
 
 </manifest>

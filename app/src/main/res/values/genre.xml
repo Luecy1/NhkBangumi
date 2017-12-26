@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="genre_array">
+        <item>ニュース／報道(定時・総合)</item>
+        <item>スポーツ(スポーツニュース)</item>
+        <item>情報／ワイドショー(グルメ・料理)</item>
+        <item>ドラマ(国内ドラマ)</item>
+        <item>音楽(童謡・キッズ)</item>
+        <item>バラエティ(トークバラエティ)</item>
+        <item>映画(洋画)</item>
+        <item>アニメ／特撮(国内アニメ)</item>
+        <item>ドキュメンタリー／教養(社会・時事)</item>
+        <item>劇場／公演(落語・演芸)</item>
+        <item>趣味／教育(旅・釣り・アウトドア)</item>
+        <item>福祉(高齢者)</item>
+    </string-array>
+</resources>

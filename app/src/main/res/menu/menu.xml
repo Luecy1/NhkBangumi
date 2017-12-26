@@ -17,6 +17,13 @@
     </item>
 
     <item
+        android:id="@+id/menu_programGenre"
+        app:showAsAction="never"
+        android:title="ジャンルで検索">
+    </item>
+
+
+    <item
         android:id="@+id/menu_setting"
         app:showAsAction="never"
         android:title="設定">
