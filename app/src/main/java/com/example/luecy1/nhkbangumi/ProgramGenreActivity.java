@@ -31,11 +31,6 @@ public class ProgramGenreActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Spinner genreSpinner = findViewById(R.id.genre_spinner);
 
-                Toast.makeText(
-                        ProgramGenreActivity.this,
-                        "" + String.valueOf(genreSpinner.getSelectedItemPosition()),
-                        Toast.LENGTH_LONG).show();
-
                 // ジャンルコードを設定
                 String genreCode = "";
                 if (genreSpinner.getSelectedItemPosition() < Const.GENRE_CODE.length) {
@@ -51,10 +46,7 @@ public class ProgramGenreActivity extends AppCompatActivity {
                         ,ProgramGenreActivity.this.getApplicationContext());
                 task.execute();
 
-
-
             }
         });
-
     }
 }
