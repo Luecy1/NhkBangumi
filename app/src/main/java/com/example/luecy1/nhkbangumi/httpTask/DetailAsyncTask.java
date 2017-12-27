@@ -135,10 +135,30 @@ public class DetailAsyncTask extends AsyncTask<Void, Void, DescriptionList> {
         TextView actView = activity.findViewById(R.id.program_detail_act);
         actView.setText(description.getAct());
 
-        // URL
-        TextView urlView = activity.findViewById(R.id.program_detail_url);
+        // 番組ジャンル
+        TextView genreView = activity.findViewById(R.id.program_detail_genre);
+        StringBuilder genreStrBuilder = new StringBuilder();
+        for (String genre : description.getGenres()) {
+            if (genreStrBuilder.length() != 0) {
+                genreStrBuilder.append(",");
+            }
+            genreStrBuilder.append(genre);
+        }
+        genreView.setText(genreStrBuilder);
+
+        // 番組URL
+        TextView urlView = activity.findViewById(R.id.program_detail_program_url);
         urlView.setText("http:" + description.getProgram_url());
         urlView.setAutoLinkMask(Linkify.WEB_URLS);
+
+        // エピソードURL
+        TextView epiUrlView = activity.findViewById(R.id.program_detail_episode_url);
+        if (description.getEpisode_url() != null && !"".equals(description.getEpisode_url())) {
+            epiUrlView.setText("http:" + description.getEpisode_url());
+            epiUrlView.setAutoLinkMask(Linkify.WEB_URLS);
+        } else {
+            epiUrlView.setText("番組URL(放送回)なし");
+        }
 
 
         loading.close();

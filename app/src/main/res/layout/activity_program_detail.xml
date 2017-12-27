@@ -112,34 +112,78 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="24dp"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="12dp"
-            tools:text="act"
+            android:layout_marginTop="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/program_detail_act_label" />
+            app:layout_constraintTop_toBottomOf="@+id/program_detail_act_label"
+            tools:text="act" />
 
         <TextView
-            android:id="@+id/program_detail_url_label"
+            android:id="@+id/program_detail_genre_label"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:text="番組ジャンル"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/program_detail_act" />
+
+        <TextView
+            android:id="@+id/program_detail_genre"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/program_detail_genre_label"
+            tools:text="genre" />
+
+        <TextView
+            android:id="@+id/program_detail_program_url_label"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="12dp"
             android:text="番組URL"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/program_detail_act" />
+            app:layout_constraintTop_toBottomOf="@+id/program_detail_genre" />
 
         <TextView
-            android:id="@+id/program_detail_url"
+            android:id="@+id/program_detail_program_url"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="32dp"
             android:layout_marginEnd="24dp"
             android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/program_detail_program_url_label"
+            tools:text="url" />
+
+        <TextView
+            android:id="@+id/program_detail_episode_url_label"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
             android:layout_marginTop="12dp"
+            android:text="番組URL(放送回)"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/program_detail_program_url" />
+
+        <TextView
+            android:id="@+id/program_detail_episode_url"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/program_detail_url_label"
+            app:layout_constraintTop_toBottomOf="@+id/program_detail_episode_url_label"
             tools:text="url" />
 
 
