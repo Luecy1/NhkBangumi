@@ -9,6 +9,7 @@ import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.luecy1.nhkbangumi.Const;
 import com.example.luecy1.nhkbangumi.Loading;
 import com.example.luecy1.nhkbangumi.ProgramDetailActivity;
 import com.example.luecy1.nhkbangumi.R;
@@ -129,7 +130,7 @@ public class DetailAsyncTask extends AsyncTask<Void, Void, DescriptionList> {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        timeView.setText(startDateString + "～" + endDateString);
+        timeView.setText(startDateString + "～\n" + endDateString);
 
         // 出演者
         TextView actView = activity.findViewById(R.id.program_detail_act);
@@ -142,7 +143,7 @@ public class DetailAsyncTask extends AsyncTask<Void, Void, DescriptionList> {
             if (genreStrBuilder.length() != 0) {
                 genreStrBuilder.append(",");
             }
-            genreStrBuilder.append(genre);
+            genreStrBuilder.append(Const.GENRE_MAP_CODE.get(genre));
         }
         genreView.setText(genreStrBuilder);
 
