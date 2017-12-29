@@ -43,6 +43,10 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(GenreIntent);
                 return true;
 
+            case R.id.menu_setting:
+                Intent settingIntent = new Intent(this, SettingsActivity.class);
+                startActivity(settingIntent);
+                return true;
         }
 
         return super.onOptionsItemSelected(item);

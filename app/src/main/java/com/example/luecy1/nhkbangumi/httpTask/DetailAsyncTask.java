@@ -225,7 +225,6 @@ public class DetailAsyncTask extends AsyncTask<Void, Void, DescriptionList> {
                 }
         );
 
-
         loading.close();
     }
 }
