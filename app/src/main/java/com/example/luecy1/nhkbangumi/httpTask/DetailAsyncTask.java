@@ -1,11 +1,14 @@
 package com.example.luecy1.nhkbangumi.httpTask;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.text.util.Linkify;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,6 +25,7 @@ import com.squareup.picasso.Picasso;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -92,18 +96,21 @@ public class DetailAsyncTask extends AsyncTask<Void, Void, DescriptionList> {
     @Override
     protected void onPostExecute(DescriptionList descriptionList) {
 
-        Description description = descriptionList.getList().getG1().get(0);
+        final Description description = descriptionList.getList().getG1().get(0);
 
+        // 番組ロゴ画像
         ImageView logo = activity.findViewById(R.id.program_detail_logo);
         if (description.getProgram_logo() != null) {
-            Picasso.with(context).load("https:" + description.getProgram_logo().getUrl()).into(logo);
+            Picasso.with(context).load("http:" + description.getProgram_logo().getUrl()).into(logo);
         } else {
             //TODO: 番組ロゴ画像がないとき
         }
 
+        // 番組タイトル
         TextView titleView = activity.findViewById(R.id.program_detail_title);
         titleView.setText(description.getTitle());
 
+        // 番組内容
         TextView subtitleView = activity.findViewById(R.id.program_detail_subtitle);
         String subtitle = description.getSubtitle();
         if (!"".equals(subtitle)) {
@@ -112,6 +119,7 @@ public class DetailAsyncTask extends AsyncTask<Void, Void, DescriptionList> {
             subtitleView.setText("番組内容なし");
         }
 
+        // 番組詳細
         TextView contentView = activity.findViewById(R.id.program_detail_content);
         String content = description.getContent();
         if (!"".equals(content)) {
@@ -119,6 +127,20 @@ public class DetailAsyncTask extends AsyncTask<Void, Void, DescriptionList> {
         } else {
             contentView.setText("番組詳細なし");
         }
+
+        // 放送地域
+        TextView areaView = activity.findViewById(R.id.program_detail_area);
+        String area = description.getArea().getName();
+        if (!"".equals(area)) {
+            areaView.setText(area);
+        } else {
+            areaView.setText("放送地域情報なし");
+        }
+
+        // 放送サービス
+        TextView serviceView = activity.findViewById(R.id.program_detail_service);
+        String service  = description.getService().getName();
+        serviceView.setText(service);
 
         // 放送時間
         TextView timeView = activity.findViewById(R.id.program_detail_time);
@@ -164,6 +186,44 @@ public class DetailAsyncTask extends AsyncTask<Void, Void, DescriptionList> {
         } else {
             epiUrlView.setText("番組URL(放送回)なし");
         }
+
+        // その他の情報
+        TextView extraView = activity.findViewById(R.id.program_detail_extras);
+        if (description.getExtras() != null) {
+            extraView.setText(description.getExtras().getOndemand_program().getTitle());
+            extraView.setText(description.getExtras().getOndemand_episode().getTitle());
+        } else {
+            extraView.setText("その他の情報なし");
+        }
+
+        // Googleカレンダーに登録を有効化
+        Button calenderButton = activity.findViewById(R.id.program_detail_calender);
+        calenderButton.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Calendar startCal = Calendar.getInstance(Locale.JAPAN);
+                        Calendar endCal   = Calendar.getInstance(Locale.JAPAN);
+                        try {
+                            Date startDate = CommonUtils.string2Date(description.getStart_time());
+                            Date endDate   = CommonUtils.string2Date(description.getEnd_time());
+
+                            startCal.setTime(startDate);
+                            endCal.setTime(endDate);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+
+                        Intent intent = new Intent(Intent.ACTION_EDIT);
+                        intent.setType("vnd.android.cursor.item/event");
+                        intent.putExtra("title", description.getTitle());
+                        intent.putExtra("description", description.getSubtitle());
+                        intent.putExtra("beginTime", startCal.getTimeInMillis()); //開始日時
+                        intent.putExtra("endTime", endCal.getTimeInMillis()); //終了日時
+                        activity.startActivity(intent);
+                    }
+                }
+        );
 
 
         loading.close();
