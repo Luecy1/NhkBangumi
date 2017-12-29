@@ -95,7 +95,11 @@ public class DetailAsyncTask extends AsyncTask<Void, Void, DescriptionList> {
         Description description = descriptionList.getList().getG1().get(0);
 
         ImageView logo = activity.findViewById(R.id.program_detail_logo);
-        Picasso.with(context).load("https:" + description.getProgram_logo().getUrl()).into(logo);
+        if (description.getProgram_logo() != null) {
+            Picasso.with(context).load("https:" + description.getProgram_logo().getUrl()).into(logo);
+        } else {
+            //TODO: 番組ロゴ画像がないとき
+        }
 
         TextView titleView = activity.findViewById(R.id.program_detail_title);
         titleView.setText(description.getTitle());
