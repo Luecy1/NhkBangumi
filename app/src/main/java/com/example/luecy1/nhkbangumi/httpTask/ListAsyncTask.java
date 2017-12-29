@@ -24,13 +24,13 @@ import okhttp3.Response;
  * Created by you on 2017/12/16.
  */
 
-public class MyAsyncTask extends AsyncTask<Integer, Integer, ProgramList> {
+public class ListAsyncTask extends AsyncTask<Integer, Integer, ProgramList> {
 
     private String url;
     private ProgramListAdapter programListAdapter;
     private Context context;
 
-    public MyAsyncTask(String url, ProgramListAdapter programListAdapter, Context context) {
+    public ListAsyncTask(String url, ProgramListAdapter programListAdapter, Context context) {
         this.url = url;
         this.programListAdapter = programListAdapter;
         this.context = context;

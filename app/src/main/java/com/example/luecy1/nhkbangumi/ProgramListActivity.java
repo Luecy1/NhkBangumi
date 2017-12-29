@@ -8,11 +8,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.BaseAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import com.example.luecy1.nhkbangumi.httpTask.MyAsyncTask;
+import com.example.luecy1.nhkbangumi.httpTask.ListAsyncTask;
 
 public class ProgramListActivity extends AppCompatActivity {
 
@@ -29,7 +27,7 @@ public class ProgramListActivity extends AppCompatActivity {
         listView.setAdapter(adapter);
 
         // 通信
-        MyAsyncTask task = new MyAsyncTask(
+        ListAsyncTask task = new ListAsyncTask(
                 "http://api.nhk.or.jp/v2/pg/list/130/g1/"
                 ,adapter
                 ,this.getApplicationContext());

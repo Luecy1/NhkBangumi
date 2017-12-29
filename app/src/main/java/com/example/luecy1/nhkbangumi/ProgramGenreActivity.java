@@ -3,13 +3,11 @@ package com.example.luecy1.nhkbangumi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.Toast;
 
-import com.example.luecy1.nhkbangumi.httpTask.MyAsyncTask;
+import com.example.luecy1.nhkbangumi.httpTask.ListAsyncTask;
 
 public class ProgramGenreActivity extends AppCompatActivity {
 
@@ -40,7 +38,7 @@ public class ProgramGenreActivity extends AppCompatActivity {
                 }
 
                 // 通信
-                MyAsyncTask task = new MyAsyncTask(
+                ListAsyncTask task = new ListAsyncTask(
                         "http://api.nhk.or.jp/v2/pg/genre/130/g1/" + genreCode + "/"
                         ,adapter
                         ,ProgramGenreActivity.this.getApplicationContext());
