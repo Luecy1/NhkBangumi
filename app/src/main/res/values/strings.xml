@@ -2,10 +2,21 @@
     <string name="app_name">nhkBangumi</string>
     <string name="title_activity_settings">Settings</string>
 
-    <!-- Strings related to Settings -->
-
-    <!-- Example General settings -->
+    <!-- Settings -->
     <string name="pref_header_general">一般</string>
+
+    <string-array name="list_service_entries">
+        <item>TV</item>
+        <item>ラジオ</item>
+        <item>ネットラジオ</item>
+    </string-array>
+
+    <string-array name="list_service_entry_values">
+        <item>tv</item>
+        <item>radio</item>
+        <item>netradio</item>
+    </string-array>
+
 
     <string name="pref_title_social_recommendations">Enable social recommendations</string>
     <string name="pref_description_social_recommendations">Recommendations for people to contact
@@ -46,18 +57,6 @@
         <item>180</item>
         <item>360</item>
         <item>-1</item>
-    </string-array>
-
-    <string-array name="list_preference_entries">
-        <item>Entry 1</item>
-        <item>Entry 2</item>
-        <item>Entry 3</item>
-    </string-array>
-
-    <string-array name="list_preference_entry_values">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
     </string-array>
 
     <string-array name="multi_select_list_preference_default_value" />
