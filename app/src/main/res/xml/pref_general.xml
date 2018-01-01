@@ -1,46 +1,25 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-<!--    <PreferenceCategory
-        android:title="放送波">
-
-        <CheckBoxPreference
-            android:key="service_tv"
-            android:title="TVすべて"
-            android:summary="チェックするとTVすべてを取得します。" />
-
-        <CheckBoxPreference
-            android:key="service_radio"
-            android:title="ラジオすべて"
-            android:summary="チェックするとラジオすべてを取得します。" />
-
-        <CheckBoxPreference
-            android:key="service_netradio"
-            android:title="ネットラジオすべて"
-            android:summary="チェックするとネットラジオすべてを取得します。" />
-
-    </PreferenceCategory>-->
-
     <MultiSelectListPreference
         android:key="service"
+        android:title="サービス"
         android:entries="@array/list_service_entries"
         android:entryValues="@array/list_service_entry_values"
-        android:title="Service"
-        android:summary="表示するサービスを選択してください。"
         />
 
     <EditTextPreference
-        android:inputType="textCapWords"
         android:key="nhk_api_key"
+        android:title="@string/pref_title_display_name"
         android:selectAllOnFocus="true"
         android:singleLine="true"
-        android:title="@string/pref_title_display_name"
-        android:summary="空白の場合アプリ標準のAPIkeyを使用します。"/>
+        />
 
-    <SwitchPreference
-        android:defaultValue="true"
-        android:key="example_switch"
-        android:summary="@string/pref_description_social_recommendations"
-        android:title="@string/pref_title_social_recommendations" />
+    <ListPreference
+        android:key="area"
+        android:title="地域"
+        android:entries="@array/list_area_entries"
+        android:entryValues="@array/list_area_entry_values"
+    />
 
 
 </PreferenceScreen>
