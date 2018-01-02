@@ -9,7 +9,7 @@
 
     <EditTextPreference
         android:key="nhk_api_key"
-        android:title="@string/pref_title_display_name"
+        android:title="API KEY"
         android:selectAllOnFocus="true"
         android:singleLine="true"
         />

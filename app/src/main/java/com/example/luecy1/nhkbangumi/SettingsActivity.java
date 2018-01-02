@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.EditTextPreference;
+import android.preference.ListPreference;
 import android.preference.MultiSelectListPreference;
 import android.preference.Preference;
 import android.support.v7.app.ActionBar;
@@ -12,6 +13,7 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.view.MenuItem;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -36,16 +38,31 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             }
 
             if (preference instanceof MultiSelectListPreference) {
+
+                MultiSelectListPreference multiSelectListPreference = (MultiSelectListPreference) preference;
+                List entryValueList = Arrays.asList(multiSelectListPreference.getEntryValues());
+
                 StringBuilder builder = new StringBuilder();
                 for (String str : (Set<String>)value) {
 
                     if (builder.length() != 0) {
                         builder.append(",");
                     }
+                    int index = entryValueList.indexOf(str);
+                    String entryValueStr = multiSelectListPreference.getEntries()[index].toString();
 
-                    builder.append(str);
+                    builder.append(entryValueStr);
                 }
                 preference.setSummary(builder.toString());
+            }
+
+            if (preference instanceof ListPreference) {
+                ListPreference listPreference = (ListPreference) preference;
+                List entryValueList = Arrays.asList(listPreference.getEntryValues());
+
+                int index = entryValueList.indexOf(value.toString());
+                String entryValueStr = listPreference.getEntries()[index].toString();
+                preference.setSummary(entryValueStr);
             }
 
             return true;
@@ -79,17 +96,24 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             // current value.
             sBindPreferenceSummaryToValueListener.onPreferenceChange(preference,
                     PreferenceManager
-                            .getDefaultSharedPreferences(preference.getContext())
-                            .getString(preference.getKey(), ""));
+                        .getDefaultSharedPreferences(preference.getContext())
+                        .getString(preference.getKey(), ""));
             return;
         }
 
         if (preference instanceof MultiSelectListPreference) {
             sBindPreferenceSummaryToValueListener.onPreferenceChange(preference,
                     PreferenceManager
-                            .getDefaultSharedPreferences(preference.getContext())
-                            .getStringSet(preference.getKey(), new HashSet<String>()));
+                        .getDefaultSharedPreferences(preference.getContext())
+                        .getStringSet(preference.getKey(), new HashSet<String>()));
             return;
+        }
+
+        if (preference instanceof ListPreference) {
+            sBindPreferenceSummaryToValueListener.onPreferenceChange(preference,
+                    PreferenceManager
+                        .getDefaultSharedPreferences(preference.getContext())
+                        .getString(preference.getKey(), ""));
         }
     }
 
@@ -162,9 +186,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
             bindPreferenceSummaryToValue(findPreference("service"));
             bindPreferenceSummaryToValue(findPreference("nhk_api_key"));
+            bindPreferenceSummaryToValue(findPreference("area"));
 
-//            bindPreferenceSummaryToValue(findPreference("example_text"));
-//            bindPreferenceSummaryToValue(findPreference("example_list"));
         }
 
         @Override
