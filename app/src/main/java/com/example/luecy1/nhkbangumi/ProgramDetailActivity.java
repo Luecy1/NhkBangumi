@@ -19,11 +19,12 @@ public class ProgramDetailActivity extends AppCompatActivity {
         loading.show();
 
         Intent intent = getIntent();
+        String service = intent.getStringExtra("service");
         String id = intent.getStringExtra("id");
 
         // 通信
         DetailAsyncTask task = new DetailAsyncTask(
-                "http://api.nhk.or.jp/v2/pg/info/130/g1/" + id + ".json"
+                "http://api.nhk.or.jp/v2/pg/info/130/" + service + "/" + id + ".json"
                 ,this.getApplicationContext()
                 ,this
                 ,loading

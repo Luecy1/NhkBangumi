@@ -9,13 +9,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.luecy1.nhkbangumi.entity.common.Program;
-import com.example.luecy1.nhkbangumi.entity.program.ProgramList;
 import com.example.luecy1.nhkbangumi.util.CommonUtils;
 import com.squareup.picasso.Picasso;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -25,21 +25,21 @@ import java.util.Locale;
 public class ProgramListAdapter extends BaseAdapter {
     Context context;
     LayoutInflater layoutInflater = null;
-    ProgramList programList = null;
+    List<Program> programList = null;
 
     public ProgramListAdapter(Context context) {
         this.context = context;
         this.layoutInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
-    public void setProgramList(ProgramList programList) {
+    public void setProgramList(List<Program> programList) {
         this.programList = programList;
 
         // ListAdapterの更新
         notifyDataSetChanged();
     }
 
-    public ProgramList getProgramList() {
+    public List<Program> getProgramList() {
         return programList;
     }
 
@@ -48,10 +48,8 @@ public class ProgramListAdapter extends BaseAdapter {
 
         if (programList == null) {
             return 0;
-        } else if (programList.getList() == null) {
-            return 0;
         } else {
-            return programList.getList().getG1().size();
+            return programList.size();
         }
 
     }
@@ -62,7 +60,7 @@ public class ProgramListAdapter extends BaseAdapter {
         if (programList == null) {
             return null;
         } else {
-            return programList.getList().getG1().get(position);
+            return programList.get(position);
         }
 
     }
@@ -73,7 +71,7 @@ public class ProgramListAdapter extends BaseAdapter {
         if (programList == null) {
             return 0L;
         } else {
-            return (long) programList.getList().getG1().get(position).hashCode();
+            return (long) programList.get(position).hashCode();
         }
 
     }
@@ -94,7 +92,7 @@ public class ProgramListAdapter extends BaseAdapter {
             return null;
         }
 
-        Program program = programList.getList().getG1().get(position);
+        Program program = programList.get(position);
 
         mainText.setText(program.getTitle());
 

@@ -38,6 +38,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             }
 
             if (preference instanceof MultiSelectListPreference) {
+                if (((Set<String>)value).size() == 0) {
+                    return true;
+                }
 
                 MultiSelectListPreference multiSelectListPreference = (MultiSelectListPreference) preference;
                 List entryValueList = Arrays.asList(multiSelectListPreference.getEntryValues());
@@ -57,6 +60,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             }
 
             if (preference instanceof ListPreference) {
+                if ("".equals(value.toString())) {
+                    return true;
+                }
                 ListPreference listPreference = (ListPreference) preference;
                 List entryValueList = Arrays.asList(listPreference.getEntryValues());
 

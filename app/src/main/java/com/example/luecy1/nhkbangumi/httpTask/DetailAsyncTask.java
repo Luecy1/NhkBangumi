@@ -96,14 +96,38 @@ public class DetailAsyncTask extends AsyncTask<Void, Void, DescriptionList> {
     @Override
     protected void onPostExecute(DescriptionList descriptionList) {
 
-        final Description description = descriptionList.getList().getG1().get(0);
+        Description tmpDescription = null;
+        if (descriptionList.getList().getG1() != null) {
+            tmpDescription = descriptionList.getList().getG1().get(0);
+        } else if (descriptionList.getList().getG2() != null) {
+            tmpDescription = descriptionList.getList().getG2().get(0);
+        } else if (descriptionList.getList().getE1() != null) {
+            tmpDescription = descriptionList.getList().getE1().get(0);
+        } else if (descriptionList.getList().getE2() != null) {
+            tmpDescription = descriptionList.getList().getE2().get(0);
+        } else if (descriptionList.getList().getE3() != null) {
+            tmpDescription = descriptionList.getList().getE3().get(0);
+        } else if (descriptionList.getList().getE4() != null) {
+            tmpDescription = descriptionList.getList().getE4().get(0);
+        } else if (descriptionList.getList().getS1() != null) {
+            tmpDescription = descriptionList.getList().getS1().get(0);
+        } else if (descriptionList.getList().getS2() != null) {
+            tmpDescription = descriptionList.getList().getS2().get(0);
+        } else if (descriptionList.getList().getS3() != null) {
+            tmpDescription = descriptionList.getList().getS3().get(0);
+        } else if (descriptionList.getList().getS4() != null) {
+            tmpDescription = descriptionList.getList().getS4().get(0);
+        }
+        if (tmpDescription == null) {
+            return;
+        }
+        final Description description = tmpDescription;
 
         // 番組ロゴ画像
         ImageView logo = activity.findViewById(R.id.program_detail_logo);
         if (description.getProgram_logo() != null) {
             Picasso.with(context).load("http:" + description.getProgram_logo().getUrl()).into(logo);
         } else {
-            //TODO: 番組ロゴ画像がないとき
         }
 
         // 番組タイトル

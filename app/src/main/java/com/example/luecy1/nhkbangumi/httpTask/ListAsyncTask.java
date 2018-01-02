@@ -6,14 +6,18 @@ import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.example.luecy1.nhkbangumi.Loading;
 import com.example.luecy1.nhkbangumi.ProgramListAdapter;
+import com.example.luecy1.nhkbangumi.entity.common.Program;
 import com.example.luecy1.nhkbangumi.entity.program.ProgramList;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import okhttp3.OkHttpClient;
@@ -24,20 +28,22 @@ import okhttp3.Response;
  * Created by you on 2017/12/16.
  */
 
-public class ListAsyncTask extends AsyncTask<Integer, Integer, ProgramList> {
+public class ListAsyncTask extends AsyncTask<Integer, Integer, List<Program>> {
 
     private String url;
     private ProgramListAdapter programListAdapter;
     private Context context;
+    private Loading loading;
 
-    public ListAsyncTask(String url, ProgramListAdapter programListAdapter, Context context) {
+    public ListAsyncTask(String url, ProgramListAdapter programListAdapter, Context context, Loading loading) {
         this.url = url;
         this.programListAdapter = programListAdapter;
         this.context = context;
+        this.loading = loading;
     }
 
     @Override
-    protected ProgramList doInBackground(Integer... integers) {
+    protected List<Program> doInBackground(Integer... integers) {
 
         // 現在日付の取得
         Date nowDate = new Date();
@@ -88,21 +94,42 @@ public class ListAsyncTask extends AsyncTask<Integer, Integer, ProgramList> {
             e.printStackTrace();
         }
 
-        return programList;
+        List<Program> programs = new ArrayList<>();
+
+        if (programList == null || programList.getList() == null) {
+            return programs;
+        }
+
+        ifAddNonNull(programs, programList.getList().getG1());
+        ifAddNonNull(programs, programList.getList().getG2());
+        ifAddNonNull(programs, programList.getList().getE1());
+        ifAddNonNull(programs, programList.getList().getE2());
+        ifAddNonNull(programs, programList.getList().getE3());
+        ifAddNonNull(programs, programList.getList().getE4());
+        ifAddNonNull(programs, programList.getList().getS1());
+        ifAddNonNull(programs, programList.getList().getS2());
+        ifAddNonNull(programs, programList.getList().getS3());
+        ifAddNonNull(programs, programList.getList().getS4());
+
+        return programs;
+    }
+
+    private void ifAddNonNull(List<Program> programs,List<Program> addProgram) {
+        if (addProgram != null) {
+            programs.addAll(addProgram);
+        }
     }
 
     @Override
-    protected void onPostExecute(ProgramList programList) {
+    protected void onPostExecute(List<Program> programList) {
 
         if (programList == null) {
             return;
         }
 
-        // TODO:programListの中身をチェック
-
         programListAdapter.setProgramList(programList);
-        Log.d("MyApp", "情報を取得しました。");
 
+        loading.close();
 
     }
 }
