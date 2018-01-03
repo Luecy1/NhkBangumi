@@ -18,7 +18,7 @@ public class Loading {
     public void show(){
         mProgressDialog.show();
         mProgressDialog.setContentView(R.layout.loading);
-        mProgressDialog.setCancelable(false);
+//        mProgressDialog.setCancelable(false);
     }
     public void close(){
         mProgressDialog.dismiss();

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.example.luecy1.nhkbangumi.Loading;
@@ -44,6 +45,18 @@ public class ListAsyncTask extends AsyncTask<Integer, Integer, List<Program>> {
 
     @Override
     protected List<Program> doInBackground(Integer... integers) {
+
+        // 設定から地域を取得
+        String area = PreferenceManager
+                .getDefaultSharedPreferences(context)
+                .getString("area", "130");
+        this.url = this.url + area + "/";
+
+        // 設定からserviceを取得
+        String service = PreferenceManager
+                .getDefaultSharedPreferences(context)
+                .getString("service", "tv");
+        this.url = this.url + service + "/";
 
         // 現在日付の取得
         Date nowDate = new Date();
@@ -123,13 +136,10 @@ public class ListAsyncTask extends AsyncTask<Integer, Integer, List<Program>> {
     @Override
     protected void onPostExecute(List<Program> programList) {
 
-        if (programList == null) {
-            return;
+        if (programList != null) {
+            programListAdapter.setProgramList(programList);
         }
 
-        programListAdapter.setProgramList(programList);
-
         loading.close();
-
     }
 }
