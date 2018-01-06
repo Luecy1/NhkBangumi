@@ -5,6 +5,7 @@
         android:title="サービス"
         android:entries="@array/list_service_entries"
         android:entryValues="@array/list_service_entry_values"
+        android:defaultValue="@string/list_service_entry_defaultValues"
         />
 
     <EditTextPreference
@@ -21,5 +22,8 @@
         android:entryValues="@array/list_area_entry_values"
     />
 
+    <Preference
+        android:key="reset_btn"
+        android:title="設定を初期化する。"></Preference>
 
 </PreferenceScreen>

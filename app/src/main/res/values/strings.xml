@@ -17,6 +17,8 @@
         <item>netradio</item>
     </string-array>
 
+    <string name="list_service_entry_defaultValues">tv</string>
+
     <!-- 地域  -->
     <string-array name="list_area_entries">
         <item>札幌</item>

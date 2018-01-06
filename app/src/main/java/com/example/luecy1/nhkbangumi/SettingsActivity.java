@@ -1,6 +1,8 @@
 package com.example.luecy1.nhkbangumi;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -12,6 +14,9 @@ import android.support.v7.app.ActionBar;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.view.MenuItem;
+import android.widget.Toast;
+
+import com.example.luecy1.nhkbangumi.util.SettingUtils;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -127,6 +132,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setupActionBar();
+
+
     }
 
     /**
@@ -194,6 +201,31 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             bindPreferenceSummaryToValue(findPreference("nhk_api_key"));
             bindPreferenceSummaryToValue(findPreference("area"));
 
+            Preference preference = findPreference("reset_btn");
+            preference.setOnPreferenceClickListener(
+                    new Preference.OnPreferenceClickListener() {
+                        @Override
+                        public boolean onPreferenceClick(Preference preference) {
+                            // ダイアログを表示
+                            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                            builder.setTitle("警告");
+                            builder.setMessage("設定値を初期化します。よろしいですか。");
+                            builder.setPositiveButton(getResources().getString(android.R.string.ok),
+                                    new DialogInterface.OnClickListener() {
+
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            PreferenceManager.getDefaultSharedPreferences(getActivity()).edit().clear().commit();
+                                            Toast.makeText(getActivity(),"設定を初期化しました。",Toast.LENGTH_SHORT).show();
+                                            SettingUtils.initSettings(getActivity());
+                                        }
+                                    });
+                            builder.setNegativeButton(android.R.string.cancel,null);
+                            builder.show();
+
+                            return true;
+                        }
+                    });
         }
 
         @Override
