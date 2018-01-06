@@ -4,6 +4,7 @@ import com.example.luecy1.nhkbangumi.entity.common.Program;
 
 public class List {
 
+    // tv
     private java.util.List<Program> g1 = null;
     private java.util.List<Program> g2 = null;
     private java.util.List<Program> e1 = null;
@@ -14,6 +15,17 @@ public class List {
     private java.util.List<Program> s2 = null;
     private java.util.List<Program> s3 = null;
     private java.util.List<Program> s4 = null;
+
+    // radio
+    private java.util.List<Program> r1 = null;
+    private java.util.List<Program> r2 = null;
+    private java.util.List<Program> r3 = null;
+
+    //netradio
+    private java.util.List<Program> n1 = null;
+    private java.util.List<Program> n2 = null;
+    private java.util.List<Program> n3 = null;
+
 
     public List() {
     }
@@ -96,5 +108,53 @@ public class List {
 
     public void setS4(java.util.List<Program> s4) {
         this.s4 = s4;
+    }
+
+    public java.util.List<Program> getR1() {
+        return r1;
+    }
+
+    public void setR1(java.util.List<Program> r1) {
+        this.r1 = r1;
+    }
+
+    public java.util.List<Program> getR2() {
+        return r2;
+    }
+
+    public void setR2(java.util.List<Program> r2) {
+        this.r2 = r2;
+    }
+
+    public java.util.List<Program> getR3() {
+        return r3;
+    }
+
+    public void setR3(java.util.List<Program> r3) {
+        this.r3 = r3;
+    }
+
+    public java.util.List<Program> getN1() {
+        return n1;
+    }
+
+    public void setN1(java.util.List<Program> n1) {
+        this.n1 = n1;
+    }
+
+    public java.util.List<Program> getN2() {
+        return n2;
+    }
+
+    public void setN2(java.util.List<Program> n2) {
+        this.n2 = n2;
+    }
+
+    public java.util.List<Program> getN3() {
+        return n3;
+    }
+
+    public void setN3(java.util.List<Program> n3) {
+        this.n3 = n3;
     }
 }

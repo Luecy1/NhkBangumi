@@ -16,11 +16,13 @@ public class Loading {
         mProgressDialog = new ProgressDialog(context);
     }
     public void show(){
-        mProgressDialog.show();
         mProgressDialog.setContentView(R.layout.loading);
-//        mProgressDialog.setCancelable(false);
+        mProgressDialog.setCancelable(false);
+        mProgressDialog.show();
     }
     public void close(){
-        mProgressDialog.dismiss();
+        if (mProgressDialog.isShowing()) {
+            mProgressDialog.dismiss();
+        }
     }
 }

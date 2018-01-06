@@ -14,6 +14,7 @@ import com.squareup.picasso.Picasso;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -25,7 +26,7 @@ import java.util.Locale;
 public class ProgramListAdapter extends BaseAdapter {
     Context context;
     LayoutInflater layoutInflater = null;
-    List<Program> programList = null;
+    List<Program> programList = new ArrayList<>();
 
     public ProgramListAdapter(Context context) {
         this.context = context;
@@ -33,10 +34,12 @@ public class ProgramListAdapter extends BaseAdapter {
     }
 
     public void setProgramList(List<Program> programList) {
-        this.programList = programList;
+        if (programList != null) {
+            this.programList.addAll(programList);
 
-        // ListAdapterの更新
-        notifyDataSetChanged();
+            // ListAdapterの更新
+            notifyDataSetChanged();
+        }
     }
 
     public List<Program> getProgramList() {

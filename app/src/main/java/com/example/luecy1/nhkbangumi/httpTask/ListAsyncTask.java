@@ -1,10 +1,6 @@
 package com.example.luecy1.nhkbangumi.httpTask;
 
-import android.content.Context;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
 import android.os.AsyncTask;
-import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.example.luecy1.nhkbangumi.Loading;
@@ -14,12 +10,8 @@ import com.example.luecy1.nhkbangumi.entity.program.ProgramList;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -33,57 +25,16 @@ public class ListAsyncTask extends AsyncTask<Integer, Integer, List<Program>> {
 
     private String url;
     private ProgramListAdapter programListAdapter;
-    private Context context;
     private Loading loading;
 
-    public ListAsyncTask(String url, ProgramListAdapter programListAdapter, Context context, Loading loading) {
+    public ListAsyncTask(String url, ProgramListAdapter programListAdapter, Loading loading) {
         this.url = url;
         this.programListAdapter = programListAdapter;
-        this.context = context;
         this.loading = loading;
     }
 
     @Override
     protected List<Program> doInBackground(Integer... integers) {
-
-        // 設定から地域を取得
-        String area = PreferenceManager
-                .getDefaultSharedPreferences(context)
-                .getString("area", "130");
-        this.url = this.url + area + "/";
-
-        // 設定からserviceを取得
-        String service = PreferenceManager
-                .getDefaultSharedPreferences(context)
-                .getString("service", "tv");
-        this.url = this.url + service + "/";
-
-        // 現在日付の取得
-        Date nowDate = new Date();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.JAPAN);
-
-        // 日本日付
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(nowDate);
-        calendar.add(Calendar.HOUR, 9);
-        nowDate = calendar.getTime();
-
-
-        String jsonName = simpleDateFormat.format(nowDate) + ".json";
-        url += jsonName;
-
-        //APIキーの取得
-        String key = "";
-        try {
-            ApplicationInfo info
-                    = context.getPackageManager().getApplicationInfo(context.getPackageName(), PackageManager.GET_META_DATA);
-            key = info.metaData.getString("nhkApiKey");
-        } catch (PackageManager.NameNotFoundException e) {
-            Log.e("MyApp", "NameNotFoundException");
-            e.printStackTrace();
-        }
-
-        url = url + "?key=" + key;
 
         Request req = new Request
                 .Builder()
@@ -113,6 +64,7 @@ public class ListAsyncTask extends AsyncTask<Integer, Integer, List<Program>> {
             return programs;
         }
 
+        // TV
         ifAddNonNull(programs, programList.getList().getG1());
         ifAddNonNull(programs, programList.getList().getG2());
         ifAddNonNull(programs, programList.getList().getE1());
@@ -123,6 +75,16 @@ public class ListAsyncTask extends AsyncTask<Integer, Integer, List<Program>> {
         ifAddNonNull(programs, programList.getList().getS2());
         ifAddNonNull(programs, programList.getList().getS3());
         ifAddNonNull(programs, programList.getList().getS4());
+
+        // radio
+        ifAddNonNull(programs, programList.getList().getR1());
+        ifAddNonNull(programs, programList.getList().getR2());
+        ifAddNonNull(programs, programList.getList().getR3());
+
+        // netradio
+        ifAddNonNull(programs, programList.getList().getN1());
+        ifAddNonNull(programs, programList.getList().getN2());
+        ifAddNonNull(programs, programList.getList().getN3());
 
         return programs;
     }
