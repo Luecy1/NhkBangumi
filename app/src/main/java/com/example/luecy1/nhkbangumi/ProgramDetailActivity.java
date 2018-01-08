@@ -14,6 +14,9 @@ public class ProgramDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_program_detail);
 
+        // Title
+        setTitle("番組詳細");
+
         // Loading
         Loading loading = new Loading(this);
         loading.show();
@@ -21,10 +24,11 @@ public class ProgramDetailActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String service = intent.getStringExtra("service");
         String id = intent.getStringExtra("id");
+        String area = intent.getStringExtra("area");
 
         // 通信
         DetailAsyncTask task = new DetailAsyncTask(
-                "http://api.nhk.or.jp/v2/pg/info/130/" + service + "/" + id + ".json"
+                "http://api.nhk.or.jp/v2/pg/info/" + area +"/" + service + "/" + id + ".json"
                 ,this.getApplicationContext()
                 ,this
                 ,loading

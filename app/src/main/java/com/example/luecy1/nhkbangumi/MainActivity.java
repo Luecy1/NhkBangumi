@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
 
         // 時刻の表示
         final TextView clockText = findViewById(R.id.clock_text);
-        final DateFormat clockFormat = new SimpleDateFormat("hh:mm");
+        final DateFormat clockFormat = new SimpleDateFormat("HH:mm");
         final Handler clockHandler = new Handler();
         final Runnable run = new Runnable() {
             @Override

@@ -32,6 +32,9 @@ public class ProgramGenreActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_program_genre);
 
+        // Title
+        setTitle("番組ジャンルで検索");
+
         // LsitViewのセット
         ListView listView = findViewById(R.id.genre_list);
 
@@ -82,10 +85,12 @@ public class ProgramGenreActivity extends AppCompatActivity {
                 }
                 String programId = adapter.getProgramList().get(position).getId();
                 String service   = adapter.getProgramList().get(position).getService().getId();
+                String area      = adapter.getProgramList().get(position).getArea().getName();
                 Intent detailIntent = new Intent(getApplicationContext(), ProgramDetailActivity.class);
 
                 detailIntent.putExtra("id",programId);
                 detailIntent.putExtra("service", service);
+                detailIntent.putExtra("area", area);
                 startActivity(detailIntent);
 
             }

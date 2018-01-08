@@ -32,6 +32,9 @@ public class ProgramListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_program_list);
 
+        // Title
+        setTitle("番組リストで検索");
+
         if (!CommonUtils.netWorkCheck(this.getApplicationContext())) {
             Toast.makeText(this, "ネットワークに接続されていません。",Toast.LENGTH_SHORT).show();
             return;
@@ -76,10 +79,12 @@ public class ProgramListActivity extends AppCompatActivity {
                         }
                         String programId = adapter.getProgramList().get(position).getId();
                         String service   = adapter.getProgramList().get(position).getService().getId();
+                        String area      = adapter.getProgramList().get(position).getArea().getName();
                         Intent detailIntent = new Intent(getApplicationContext(), ProgramDetailActivity.class);
 
                         detailIntent.putExtra("id",programId);
                         detailIntent.putExtra("service", service);
+                        detailIntent.putExtra("area", area);
                         startActivity(detailIntent);
 
                     }

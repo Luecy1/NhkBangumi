@@ -155,7 +155,6 @@ public class MainActivityListAdapter extends BaseAdapter {
             followDate.setText(followDateStr);
         }
 
-
         return convertView;
     }
 }
