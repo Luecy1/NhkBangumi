@@ -5,12 +5,6 @@
     >
 
     <item
-        android:id="@+id/menu_home"
-        android:checkable="false"
-        android:title="HOME"
-        app:showAsAction="never"></item>
-
-    <item
         android:id="@+id/menu_programList"
         app:showAsAction="never"
         android:title="番組リスト">

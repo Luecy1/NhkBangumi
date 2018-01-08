@@ -26,6 +26,11 @@ public class CommonUtils {
         return nhkDateFormat.parse(dateString);
     }
 
+    public static String date2String(Date date) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月dd日 ah:mm:ss", Locale.JAPAN);
+        return format.format(date).toString();
+    }
+
     public static boolean netWorkCheck(Context context){
         ConnectivityManager cm =  (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo info = cm.getActiveNetworkInfo();

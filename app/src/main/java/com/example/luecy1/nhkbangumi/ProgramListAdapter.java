@@ -84,11 +84,11 @@ public class ProgramListAdapter extends BaseAdapter {
 
         convertView = layoutInflater.inflate(R.layout.activity_program_list_item, parent, false);
 
-        TextView mainText = convertView.findViewById(R.id.entity_mainText);
-        TextView subTitle = convertView.findViewById(R.id.list_item_subtitle);
-        TextView programDate = convertView.findViewById(R.id.list_item_subtext);
+        TextView mainText = convertView.findViewById(R.id.present_title);
+        TextView subTitle = convertView.findViewById(R.id.present_subtitle);
+        TextView programDate = convertView.findViewById(R.id.present_date);
 
-        ImageView logoImage = convertView.findViewById(R.id.Logo_image);
+        ImageView logoImage = convertView.findViewById(R.id.logo_image);
 
 
         if (programList == null) {
