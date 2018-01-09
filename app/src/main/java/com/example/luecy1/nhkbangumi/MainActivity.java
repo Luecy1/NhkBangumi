@@ -79,14 +79,22 @@ public class MainActivity extends AppCompatActivity {
         final DateFormat clockFormat = new SimpleDateFormat("HH:mm");
         final Handler clockHandler = new Handler();
         final Runnable run = new Runnable() {
+
+            boolean ColonFlg = true;
             @Override
             public void run() {
                 // 時刻の更新
                 final Date nowDate = new Date();
                 String clockStr = clockFormat.format(nowDate);
+
+                if (!ColonFlg) {
+                    clockStr = clockStr.replace(':',' ');
+                }
+                ColonFlg = !ColonFlg;
+
                 clockText.setText(clockStr);
 
-                clockHandler.postDelayed(this, 1000);
+                clockHandler.postDelayed(this, 500);
             }
         };
         clockHandler.post(run);
