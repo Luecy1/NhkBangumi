@@ -15,6 +15,8 @@ import com.squareup.picasso.Picasso;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -33,13 +35,29 @@ public class ProgramListAdapter extends BaseAdapter {
         this.layoutInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
-    public void setProgramList(List<Program> programList) {
+    public void addProgramList(List<Program> programList) {
         if (programList != null) {
             this.programList.addAll(programList);
+
+            // ソート
+            Collections.sort(this.programList,
+                    new Comparator<Program>() {
+                        @Override
+                        public int compare(Program p1, Program p2) {
+                            return p1.getStart_time().compareTo(p2.getStart_time());
+                        }
+                    });
 
             // ListAdapterの更新
             notifyDataSetChanged();
         }
+    }
+
+    public void setProgramList(List<Program> programList) {
+        this.programList = programList;
+
+        // ListAdapterの更新
+        notifyDataSetChanged();
     }
 
     public List<Program> getProgramList() {

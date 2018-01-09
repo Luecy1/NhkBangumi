@@ -26,6 +26,7 @@ import java.util.Locale;
 import java.util.Set;
 
 public class ProgramListActivity extends AppCompatActivity {
+    private List<ListAsyncTask> mListAsyncTask = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +69,7 @@ public class ProgramListActivity extends AppCompatActivity {
         for (ListAsyncTask task : taskList) {
             task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         }
+        mListAsyncTask = taskList;
 
         listView.setOnItemClickListener(
                 new AdapterView.OnItemClickListener() {
@@ -79,7 +81,7 @@ public class ProgramListActivity extends AppCompatActivity {
                         }
                         String programId = adapter.getProgramList().get(position).getId();
                         String service   = adapter.getProgramList().get(position).getService().getId();
-                        String area      = adapter.getProgramList().get(position).getArea().getName();
+                        String area      = adapter.getProgramList().get(position).getArea().getId();
                         Intent detailIntent = new Intent(getApplicationContext(), ProgramDetailActivity.class);
 
                         detailIntent.putExtra("id",programId);
@@ -90,6 +92,17 @@ public class ProgramListActivity extends AppCompatActivity {
                     }
                 }
         );
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        if (mListAsyncTask != null) {
+            for (ListAsyncTask task : mListAsyncTask) {
+                task.cancel(false);
+            }
+        }
     }
 
     /**

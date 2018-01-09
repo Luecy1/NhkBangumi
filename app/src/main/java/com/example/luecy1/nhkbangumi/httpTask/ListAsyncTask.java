@@ -99,9 +99,15 @@ public class ListAsyncTask extends AsyncTask<Integer, Integer, List<Program>> {
     protected void onPostExecute(List<Program> programList) {
 
         if (programList != null) {
-            programListAdapter.setProgramList(programList);
+            programListAdapter.addProgramList(programList);
         }
 
+        loading.close();
+    }
+
+    @Override
+    protected void onCancelled() {
+        super.onCancelled();
         loading.close();
     }
 }

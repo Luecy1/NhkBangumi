@@ -67,6 +67,7 @@ public class DetailAsyncTask extends AsyncTask<Void, Void, DescriptionList> {
         }
 
         url = url + "?key=" + key;
+        Log.d("MyApp", url);
 
         Request req = new Request
                 .Builder()

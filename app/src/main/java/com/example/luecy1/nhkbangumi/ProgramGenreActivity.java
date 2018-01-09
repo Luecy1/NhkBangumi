@@ -14,6 +14,7 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.luecy1.nhkbangumi.entity.common.Program;
 import com.example.luecy1.nhkbangumi.httpTask.ListAsyncTask;
 
 import java.text.SimpleDateFormat;
@@ -26,6 +27,7 @@ import java.util.Locale;
 import java.util.Set;
 
 public class ProgramGenreActivity extends AppCompatActivity {
+    private List<ListAsyncTask> listAsyncTasks = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +48,11 @@ public class ProgramGenreActivity extends AppCompatActivity {
         genreSearchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // データが表示されていた場合、クリア
+                if (adapter.getProgramList().size() > 0 ) {
+                    adapter.setProgramList(new ArrayList<Program>());
+                }
+
                 final Loading loading = new Loading(ProgramGenreActivity.this);
                 loading.show();
 
@@ -74,6 +81,7 @@ public class ProgramGenreActivity extends AppCompatActivity {
                     task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                 }
 
+                listAsyncTasks = taskList;
             }
         });
 
@@ -85,7 +93,7 @@ public class ProgramGenreActivity extends AppCompatActivity {
                 }
                 String programId = adapter.getProgramList().get(position).getId();
                 String service   = adapter.getProgramList().get(position).getService().getId();
-                String area      = adapter.getProgramList().get(position).getArea().getName();
+                String area      = adapter.getProgramList().get(position).getArea().getId();
                 Intent detailIntent = new Intent(getApplicationContext(), ProgramDetailActivity.class);
 
                 detailIntent.putExtra("id",programId);
@@ -95,6 +103,18 @@ public class ProgramGenreActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        if (listAsyncTasks != null) {
+            for (ListAsyncTask task : listAsyncTasks) {
+                task.cancel(false);
+            }
+        }
+
     }
 
     /**
