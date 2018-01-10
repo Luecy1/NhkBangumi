@@ -2,8 +2,6 @@ package com.example.luecy1.nhkbangumi.httpTask;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.text.util.Linkify;
 import android.util.Log;
@@ -53,21 +51,6 @@ public class DetailAsyncTask extends AsyncTask<Void, Void, DescriptionList> {
 
     @Override
     protected DescriptionList doInBackground(Void... params) {
-
-
-        //APIキーの取得
-        String key = "";
-        try {
-            ApplicationInfo info
-                    = context.getPackageManager().getApplicationInfo(context.getPackageName(), PackageManager.GET_META_DATA);
-            key = info.metaData.getString("nhkApiKey");
-        } catch (PackageManager.NameNotFoundException e) {
-            Log.e("MyApp", "NameNotFoundException");
-            e.printStackTrace();
-        }
-
-        url = url + "?key=" + key;
-        Log.d("MyApp", url);
 
         Request req = new Request
                 .Builder()
@@ -200,8 +183,8 @@ public class DetailAsyncTask extends AsyncTask<Void, Void, DescriptionList> {
 
         // 番組URL
         TextView urlView = activity.findViewById(R.id.program_detail_program_url);
-        urlView.setText("http:" + description.getProgram_url());
         urlView.setAutoLinkMask(Linkify.WEB_URLS);
+        urlView.setText("http:" + description.getProgram_url());
 
         // エピソードURL
         TextView epiUrlView = activity.findViewById(R.id.program_detail_episode_url);

@@ -1,12 +1,16 @@
 package com.example.luecy1.nhkbangumi;
 
 import android.content.Context;
+import android.support.constraint.ConstraintLayout;
+import android.text.Layout;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.luecy1.nhkbangumi.entity.common.Program;
 import com.example.luecy1.nhkbangumi.entity.nowonair.NowOnAir;
@@ -133,6 +137,16 @@ public class MainActivityListAdapter extends BaseAdapter {
             }
             prevDate.setText(prevDateStr);
         }
+
+        ConstraintLayout prevLayout = convertView.findViewById(R.id.previos_program_layout);
+        prevLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(context, "前へをタップ",Toast.LENGTH_SHORT).show();
+                return;
+            }
+        });
+
 
         // 次の番組
         TextView followTitle = convertView.findViewById(R.id.following_title);
