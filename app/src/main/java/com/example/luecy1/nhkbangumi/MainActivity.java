@@ -17,18 +17,15 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.luecy1.nhkbangumi.httpTask.ListAsyncTask;
-import com.example.luecy1.nhkbangumi.httpTask.MainAsyncTask;
+import com.example.luecy1.nhkbangumi.task.MainAsyncTask;
 import com.example.luecy1.nhkbangumi.util.SettingUtils;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Locale;
 import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {

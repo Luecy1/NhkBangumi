@@ -1,11 +1,10 @@
-package com.example.luecy1.nhkbangumi.httpTask;
+package com.example.luecy1.nhkbangumi.task;
 
 import android.os.AsyncTask;
 import android.util.Log;
 
 import com.example.luecy1.nhkbangumi.Loading;
 import com.example.luecy1.nhkbangumi.MainActivityListAdapter;
-import com.example.luecy1.nhkbangumi.entity.common.Program;
 import com.example.luecy1.nhkbangumi.entity.nowonair.NowOnAir;
 import com.example.luecy1.nhkbangumi.entity.nowonair.NowOnAirRoot;
 import com.fasterxml.jackson.databind.ObjectMapper;

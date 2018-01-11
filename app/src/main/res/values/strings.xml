@@ -190,4 +190,5 @@
     <string name="pref_ringtone_silent">Silent</string>
 
     <string name="pref_title_vibrate">Vibrate</string>
+    <string name="NowOnAirLabel">現在放送中</string>
 </resources>

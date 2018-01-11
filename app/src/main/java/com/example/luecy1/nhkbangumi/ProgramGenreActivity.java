@@ -15,7 +15,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.luecy1.nhkbangumi.entity.common.Program;
-import com.example.luecy1.nhkbangumi.httpTask.ListAsyncTask;
+import com.example.luecy1.nhkbangumi.task.ListAsyncTask;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

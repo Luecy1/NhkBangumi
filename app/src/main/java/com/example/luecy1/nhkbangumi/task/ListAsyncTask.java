@@ -1,4 +1,4 @@
-package com.example.luecy1.nhkbangumi.httpTask;
+package com.example.luecy1.nhkbangumi.task;
 
 import android.os.AsyncTask;
 import android.util.Log;
@@ -6,7 +6,7 @@ import android.util.Log;
 import com.example.luecy1.nhkbangumi.Loading;
 import com.example.luecy1.nhkbangumi.ProgramListAdapter;
 import com.example.luecy1.nhkbangumi.entity.common.Program;
-import com.example.luecy1.nhkbangumi.entity.program.ProgramList;
+import com.example.luecy1.nhkbangumi.entity.program.ProgramListRoot;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
@@ -43,13 +43,13 @@ public class ListAsyncTask extends AsyncTask<Integer, Integer, List<Program>> {
 
         OkHttpClient client = new OkHttpClient();
 
-        ProgramList programList = null;
+        ProgramListRoot programListRoot = null;
 
         try {
             Response resp = client.newCall(req).execute();
 
             ObjectMapper mapper = new ObjectMapper();
-            programList = mapper.readValue(resp.body().string(), ProgramList.class);
+            programListRoot = mapper.readValue(resp.body().string(), ProgramListRoot.class);
 
             resp.body().close();
 
@@ -60,31 +60,31 @@ public class ListAsyncTask extends AsyncTask<Integer, Integer, List<Program>> {
 
         List<Program> programs = new ArrayList<>();
 
-        if (programList == null || programList.getList() == null) {
+        if (programListRoot == null || programListRoot.getList() == null) {
             return programs;
         }
 
         // TV
-        ifAddNonNull(programs, programList.getList().getG1());
-        ifAddNonNull(programs, programList.getList().getG2());
-        ifAddNonNull(programs, programList.getList().getE1());
-        ifAddNonNull(programs, programList.getList().getE2());
-        ifAddNonNull(programs, programList.getList().getE3());
-        ifAddNonNull(programs, programList.getList().getE4());
-        ifAddNonNull(programs, programList.getList().getS1());
-        ifAddNonNull(programs, programList.getList().getS2());
-        ifAddNonNull(programs, programList.getList().getS3());
-        ifAddNonNull(programs, programList.getList().getS4());
+        ifAddNonNull(programs, programListRoot.getList().getG1());
+        ifAddNonNull(programs, programListRoot.getList().getG2());
+        ifAddNonNull(programs, programListRoot.getList().getE1());
+        ifAddNonNull(programs, programListRoot.getList().getE2());
+        ifAddNonNull(programs, programListRoot.getList().getE3());
+        ifAddNonNull(programs, programListRoot.getList().getE4());
+        ifAddNonNull(programs, programListRoot.getList().getS1());
+        ifAddNonNull(programs, programListRoot.getList().getS2());
+        ifAddNonNull(programs, programListRoot.getList().getS3());
+        ifAddNonNull(programs, programListRoot.getList().getS4());
 
         // radio
-        ifAddNonNull(programs, programList.getList().getR1());
-        ifAddNonNull(programs, programList.getList().getR2());
-        ifAddNonNull(programs, programList.getList().getR3());
+        ifAddNonNull(programs, programListRoot.getList().getR1());
+        ifAddNonNull(programs, programListRoot.getList().getR2());
+        ifAddNonNull(programs, programListRoot.getList().getR3());
 
         // netradio
-        ifAddNonNull(programs, programList.getList().getN1());
-        ifAddNonNull(programs, programList.getList().getN2());
-        ifAddNonNull(programs, programList.getList().getN3());
+        ifAddNonNull(programs, programListRoot.getList().getN1());
+        ifAddNonNull(programs, programListRoot.getList().getN2());
+        ifAddNonNull(programs, programListRoot.getList().getN3());
 
         return programs;
     }

@@ -1,4 +1,4 @@
-package com.example.luecy1.nhkbangumi.httpTask;
+package com.example.luecy1.nhkbangumi.task;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,13 +9,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.luecy1.nhkbangumi.Const;
 import com.example.luecy1.nhkbangumi.Loading;
 import com.example.luecy1.nhkbangumi.ProgramDetailActivity;
 import com.example.luecy1.nhkbangumi.R;
 import com.example.luecy1.nhkbangumi.entity.description.Description;
-import com.example.luecy1.nhkbangumi.entity.description.DescriptionList;
+import com.example.luecy1.nhkbangumi.entity.description.DescriptionListRoot;
 import com.example.luecy1.nhkbangumi.util.CommonUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.squareup.picasso.Picasso;
@@ -35,7 +36,7 @@ import okhttp3.Response;
  * Created by you on 2017/12/16.
  */
 
-public class DetailAsyncTask extends AsyncTask<Void, Void, DescriptionList> {
+public class DetailAsyncTask extends AsyncTask<Void, Void, DescriptionListRoot> {
 
     private String url;
     private Context context;
@@ -50,7 +51,7 @@ public class DetailAsyncTask extends AsyncTask<Void, Void, DescriptionList> {
     }
 
     @Override
-    protected DescriptionList doInBackground(Void... params) {
+    protected DescriptionListRoot doInBackground(Void... params) {
 
         Request req = new Request
                 .Builder()
@@ -59,13 +60,20 @@ public class DetailAsyncTask extends AsyncTask<Void, Void, DescriptionList> {
 
         OkHttpClient client = new OkHttpClient();
 
-        DescriptionList descriptionList = null;
+        DescriptionListRoot descriptionListRoot = null;
 
         try {
             Response resp = client.newCall(req).execute();
 
+            int resoCode = resp.code();
+            if (resoCode != 200) {
+                Toast.makeText(context, "サーバーエラー", Toast.LENGTH_LONG).show();
+                return  null;
+            }
+
+
             ObjectMapper mapper = new ObjectMapper();
-            descriptionList = mapper.readValue(resp.body().string(), DescriptionList.class);
+            descriptionListRoot = mapper.readValue(resp.body().string(), DescriptionListRoot.class);
 
             resp.body().close();
 
@@ -74,33 +82,36 @@ public class DetailAsyncTask extends AsyncTask<Void, Void, DescriptionList> {
             e.printStackTrace();
         }
 
-        return descriptionList;
+        return descriptionListRoot;
     }
 
     @Override
-    protected void onPostExecute(DescriptionList descriptionList) {
+    protected void onPostExecute(DescriptionListRoot descriptionListRoot) {
+        if (descriptionListRoot == null || descriptionListRoot.getList() == null) {
+            return;
+        }
 
         Description tmpDescription = null;
-        if (descriptionList.getList().getG1() != null) {
-            tmpDescription = descriptionList.getList().getG1().get(0);
-        } else if (descriptionList.getList().getG2() != null) {
-            tmpDescription = descriptionList.getList().getG2().get(0);
-        } else if (descriptionList.getList().getE1() != null) {
-            tmpDescription = descriptionList.getList().getE1().get(0);
-        } else if (descriptionList.getList().getE2() != null) {
-            tmpDescription = descriptionList.getList().getE2().get(0);
-        } else if (descriptionList.getList().getE3() != null) {
-            tmpDescription = descriptionList.getList().getE3().get(0);
-        } else if (descriptionList.getList().getE4() != null) {
-            tmpDescription = descriptionList.getList().getE4().get(0);
-        } else if (descriptionList.getList().getS1() != null) {
-            tmpDescription = descriptionList.getList().getS1().get(0);
-        } else if (descriptionList.getList().getS2() != null) {
-            tmpDescription = descriptionList.getList().getS2().get(0);
-        } else if (descriptionList.getList().getS3() != null) {
-            tmpDescription = descriptionList.getList().getS3().get(0);
-        } else if (descriptionList.getList().getS4() != null) {
-            tmpDescription = descriptionList.getList().getS4().get(0);
+        if (descriptionListRoot.getList().getG1() != null) {
+            tmpDescription = descriptionListRoot.getList().getG1().get(0);
+        } else if (descriptionListRoot.getList().getG2() != null) {
+            tmpDescription = descriptionListRoot.getList().getG2().get(0);
+        } else if (descriptionListRoot.getList().getE1() != null) {
+            tmpDescription = descriptionListRoot.getList().getE1().get(0);
+        } else if (descriptionListRoot.getList().getE2() != null) {
+            tmpDescription = descriptionListRoot.getList().getE2().get(0);
+        } else if (descriptionListRoot.getList().getE3() != null) {
+            tmpDescription = descriptionListRoot.getList().getE3().get(0);
+        } else if (descriptionListRoot.getList().getE4() != null) {
+            tmpDescription = descriptionListRoot.getList().getE4().get(0);
+        } else if (descriptionListRoot.getList().getS1() != null) {
+            tmpDescription = descriptionListRoot.getList().getS1().get(0);
+        } else if (descriptionListRoot.getList().getS2() != null) {
+            tmpDescription = descriptionListRoot.getList().getS2().get(0);
+        } else if (descriptionListRoot.getList().getS3() != null) {
+            tmpDescription = descriptionListRoot.getList().getS3().get(0);
+        } else if (descriptionListRoot.getList().getS4() != null) {
+            tmpDescription = descriptionListRoot.getList().getS4().get(0);
         }
         if (tmpDescription == null) {
             return;

@@ -13,7 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.luecy1.nhkbangumi.httpTask.ListAsyncTask;
+import com.example.luecy1.nhkbangumi.task.ListAsyncTask;
 import com.example.luecy1.nhkbangumi.util.CommonUtils;
 
 import java.text.SimpleDateFormat;

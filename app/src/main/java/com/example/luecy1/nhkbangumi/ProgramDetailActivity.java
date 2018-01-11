@@ -8,7 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import com.example.luecy1.nhkbangumi.httpTask.DetailAsyncTask;
+import com.example.luecy1.nhkbangumi.task.DetailAsyncTask;
 
 
 public class ProgramDetailActivity extends AppCompatActivity {
