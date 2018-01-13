@@ -3,7 +3,7 @@
     <!-- These settings headers are only used on tablets. -->
 
     <header
-        android:fragment="com.example.luecy1.nhkbangumi.SettingsActivity$GeneralPreferenceFragment"
+        android:fragment="com.github.luecy1.nhkbangumi.SettingsActivity$GeneralPreferenceFragment"
         android:icon="@drawable/ic_info_black_24dp"
         android:title="@string/pref_header_general" />
 
