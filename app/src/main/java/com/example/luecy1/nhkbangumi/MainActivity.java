@@ -54,8 +54,10 @@ public class MainActivity extends AppCompatActivity {
         listView.setAdapter(adapter);
 
         Set<String> urlSet = buildUrl();
-        for (String url : urlSet) {
-            Log.d("MyApp", url);
+        if (BuildConfig.DEBUG) {
+            for (String url : urlSet) {
+                Log.d("MyApp", url);
+            }
         }
 
         // 通信

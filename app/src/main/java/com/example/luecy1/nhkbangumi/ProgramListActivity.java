@@ -36,11 +36,6 @@ public class ProgramListActivity extends AppCompatActivity {
         // Title
         setTitle("番組リストで検索");
 
-        if (!CommonUtils.netWorkCheck(this.getApplicationContext())) {
-            Toast.makeText(this, "ネットワークに接続されていません。",Toast.LENGTH_SHORT).show();
-            return;
-        }
-
         // Loading
         Loading loading = new Loading(this);
         loading.show();
@@ -53,8 +48,10 @@ public class ProgramListActivity extends AppCompatActivity {
         listView.setAdapter(adapter);
 
         Set<String> urlSet = buildUrl();
-        for (String url : urlSet) {
-            Log.d("MyApp", url);
+        if (BuildConfig.DEBUG) {
+            for (String url : urlSet) {
+                Log.d("MyApp", url);
+            }
         }
 
         // 通信

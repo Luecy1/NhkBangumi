@@ -1,6 +1,7 @@
 package com.example.luecy1.nhkbangumi;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.constraint.ConstraintLayout;
 import android.text.Layout;
 import android.view.LayoutInflater;
@@ -100,6 +101,7 @@ public class MainActivityListAdapter extends BaseAdapter {
             return null;
         }
 
+        // 現在の番組
         Program program = nowOnAirList.get(position).getPresent();
 
         mainText.setText(program.getTitle());
@@ -115,6 +117,9 @@ public class MainActivityListAdapter extends BaseAdapter {
         }
         programDate.setText(startDateString);
 
+        ConstraintLayout presentLayout = convertView.findViewById(R.id.present_program_layout);
+        setClickProgram(presentLayout, program);
+
         Picasso.with(context).load("https:" + program.getService().getLogo_l().getUrl()).into(logoImage);
 
         // 前の番組
@@ -122,7 +127,7 @@ public class MainActivityListAdapter extends BaseAdapter {
         TextView prevSubTitle = convertView.findViewById(R.id.previous_subtitle);
         TextView prevDate = convertView.findViewById(R.id.previous_date);
 
-        Program prevProgram = nowOnAirList.get(position).getPrevious();
+        final Program prevProgram = nowOnAirList.get(position).getPrevious();
 
         if (prevProgram != null) {
             prevTitle.setText(prevProgram.getTitle());
@@ -136,17 +141,10 @@ public class MainActivityListAdapter extends BaseAdapter {
                 e.printStackTrace();
             }
             prevDate.setText(prevDateStr);
+
+            ConstraintLayout prevLayout = convertView.findViewById(R.id.previos_program_layout);
+            setClickProgram(prevLayout, prevProgram);
         }
-
-        ConstraintLayout prevLayout = convertView.findViewById(R.id.previos_program_layout);
-        prevLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(context, "前へをタップ",Toast.LENGTH_SHORT).show();
-                return;
-            }
-        });
-
 
         // 次の番組
         TextView followTitle = convertView.findViewById(R.id.following_title);
@@ -167,8 +165,34 @@ public class MainActivityListAdapter extends BaseAdapter {
                 e.printStackTrace();
             }
             followDate.setText(followDateStr);
+
+            ConstraintLayout followLayout = convertView.findViewById(R.id.following_program_layout);
+            setClickProgram(followLayout, followProgram);
         }
 
         return convertView;
+    }
+
+    private void setClickProgram(final View view, final Program program) {
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (program == null) {
+                    return;
+                }
+                String programId = program.getId();
+                String service   = program.getService().getId();
+                String area      = program.getArea().getId();
+                Intent detailIntent = new Intent(context , ProgramDetailActivity.class);
+
+                detailIntent.putExtra("id",programId);
+                detailIntent.putExtra("service", service);
+                detailIntent.putExtra("area", area);
+                context.startActivity(detailIntent);
+
+                return;
+            }
+        });
+
     }
 }

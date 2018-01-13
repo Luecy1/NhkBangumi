@@ -59,7 +59,7 @@ public class ProgramGenreActivity extends AppCompatActivity {
                 Spinner genreSpinner = findViewById(R.id.genre_spinner);
 
                 // ジャンルコードを設定
-                String genreCode = "";
+                String genreCode;
                 if (genreSpinner.getSelectedItemPosition() < Const.GENRE_CODE.length) {
                     genreCode = Const.GENRE_CODE[genreSpinner.getSelectedItemPosition()];
                 } else {
