@@ -20,6 +20,7 @@
             android:layout_marginBottom="16dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
+            android:contentDescription="@string/program_logo"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -54,7 +55,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:textColor="@android:color/black"
-            android:textSize="16dp"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/logo_image"
             app:layout_constraintTop_toTopOf="parent"
@@ -87,8 +88,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="前の番組"
-            android:textSize="16dp"
+            android:text="@string/previous_program"
+            android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -100,7 +101,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:textColor="@android:color/black"
-            android:textSize="16dp"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/previos_label"
@@ -146,8 +147,8 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginTop="8dp"
-            android:text="次の番組"
-            android:textSize="16dp"
+            android:text="@string/following_program"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -160,7 +161,7 @@
             android:layout_marginTop="8dp"
             android:textAlignment="textEnd"
             android:textColor="@android:color/black"
-            android:textSize="16dp"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/following_label"
