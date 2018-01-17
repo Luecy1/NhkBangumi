@@ -7,7 +7,7 @@ import com.github.luecy1.nhkbangumi.Loading;
 import com.github.luecy1.nhkbangumi.MainActivityListAdapter;
 import com.github.luecy1.nhkbangumi.entity.nowonair.NowOnAir;
 import com.github.luecy1.nhkbangumi.entity.nowonair.NowOnAirRoot;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -48,8 +48,9 @@ public class MainAsyncTask extends AsyncTask<Integer, Integer, List<NowOnAir>> {
         try {
             Response resp = client.newCall(req).execute();
 
-            ObjectMapper mapper = new ObjectMapper();
-            json = mapper.readValue(resp.body().string(), NowOnAirRoot.class);
+            Gson gson = new Gson();
+            json = gson.fromJson(resp.body().string(), NowOnAirRoot.class);
+
 
             resp.body().close();
 

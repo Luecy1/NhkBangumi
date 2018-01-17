@@ -7,7 +7,7 @@ import com.github.luecy1.nhkbangumi.Loading;
 import com.github.luecy1.nhkbangumi.ProgramListAdapter;
 import com.github.luecy1.nhkbangumi.entity.common.Program;
 import com.github.luecy1.nhkbangumi.entity.program.ProgramListRoot;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -48,8 +48,8 @@ public class ListAsyncTask extends AsyncTask<Integer, Integer, List<Program>> {
         try {
             Response resp = client.newCall(req).execute();
 
-            ObjectMapper mapper = new ObjectMapper();
-            programListRoot = mapper.readValue(resp.body().string(), ProgramListRoot.class);
+            Gson gson = new Gson();
+            programListRoot = gson.fromJson(resp.body().string(), ProgramListRoot.class);
 
             resp.body().close();
 

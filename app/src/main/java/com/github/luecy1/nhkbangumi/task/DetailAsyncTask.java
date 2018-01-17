@@ -18,7 +18,7 @@ import com.github.luecy1.nhkbangumi.R;
 import com.github.luecy1.nhkbangumi.entity.description.Description;
 import com.github.luecy1.nhkbangumi.entity.description.DescriptionListRoot;
 import com.github.luecy1.nhkbangumi.util.CommonUtils;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
@@ -71,9 +71,8 @@ public class DetailAsyncTask extends AsyncTask<Void, Void, DescriptionListRoot> 
                 return  null;
             }
 
-
-            ObjectMapper mapper = new ObjectMapper();
-            descriptionListRoot = mapper.readValue(resp.body().string(), DescriptionListRoot.class);
+            Gson gson = new Gson();
+            descriptionListRoot = gson.fromJson(resp.body().string(),DescriptionListRoot.class);
 
             resp.body().close();
 

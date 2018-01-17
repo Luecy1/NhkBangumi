@@ -14,10 +14,11 @@ public class Loading {
     public Loading(Context context){
         mContext = context;
         mProgressDialog = new ProgressDialog(context);
+        mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        mProgressDialog.setMessage("処理を実行中しています");
+        mProgressDialog.setCancelable(true);
     }
     public void show(){
-        mProgressDialog.setContentView(R.layout.loading);
-        mProgressDialog.setCancelable(false);
         mProgressDialog.show();
     }
     public void close(){
