@@ -3,11 +3,13 @@ package com.github.luecy1.nhkbangumi;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.databinding.DataBindingUtil;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.github.luecy1.nhkbangumi.databinding.ActivityProgramDetailBinding;
 import com.github.luecy1.nhkbangumi.task.DetailAsyncTask;
 
 
@@ -24,6 +26,8 @@ public class ProgramDetailActivity extends AppCompatActivity {
         // Loading
         Loading loading = new Loading(this);
         loading.show();
+
+        ActivityProgramDetailBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_program_detail);
 
         Intent intent = getIntent();
         String service = intent.getStringExtra("service");

@@ -2,21 +2,22 @@ package com.github.luecy1.nhkbangumi.task;
 
 import android.content.Context;
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.os.AsyncTask;
-import android.text.util.Linkify;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.luecy1.nhkbangumi.Const;
 import com.github.luecy1.nhkbangumi.Loading;
 import com.github.luecy1.nhkbangumi.ProgramDetailActivity;
 import com.github.luecy1.nhkbangumi.R;
+import com.github.luecy1.nhkbangumi.databinding.ActivityProgramDetailBinding;
 import com.github.luecy1.nhkbangumi.entity.description.Description;
 import com.github.luecy1.nhkbangumi.entity.description.DescriptionListRoot;
+import com.github.luecy1.nhkbangumi.model.ProgramDetailModel;
 import com.github.luecy1.nhkbangumi.util.CommonUtils;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
@@ -120,48 +121,16 @@ public class DetailAsyncTask extends AsyncTask<Void, Void, DescriptionListRoot> 
         // 番組ロゴ画像
         ImageView logo = activity.findViewById(R.id.program_detail_logo);
         if (description.getProgram_logo() != null) {
-            Picasso.with(context).load("http:" + description.getProgram_logo().getUrl()).into(logo);
+            Picasso.with(context).load("https:" + description.getProgram_logo().getUrl()).into(logo);
         } else {
         }
 
-        // 番組タイトル
-        TextView titleView = activity.findViewById(R.id.program_detail_title);
-        titleView.setText(description.getTitle());
-
-        // 番組内容
-        TextView subtitleView = activity.findViewById(R.id.program_detail_subtitle);
-        String subtitle = description.getSubtitle();
-        if (!"".equals(subtitle)) {
-            subtitleView.setText(subtitle);
-        } else {
-            subtitleView.setText("番組内容なし");
-        }
-
-        // 番組詳細
-        TextView contentView = activity.findViewById(R.id.program_detail_content);
-        String content = description.getContent();
-        if (!"".equals(content)) {
-            contentView.setText(content);
-        } else {
-            contentView.setText("番組詳細なし");
-        }
-
-        // 放送地域
-        TextView areaView = activity.findViewById(R.id.program_detail_area);
-        String area = description.getArea().getName();
-        if (!"".equals(area)) {
-            areaView.setText(area);
-        } else {
-            areaView.setText("放送地域情報なし");
-        }
-
-        // 放送サービス
-        TextView serviceView = activity.findViewById(R.id.program_detail_service);
-        String service  = description.getService().getName();
-        serviceView.setText(service);
-
-        // 放送時間
-        TextView timeView = activity.findViewById(R.id.program_detail_time);
+        ProgramDetailModel model = new ProgramDetailModel();
+        model.setTitle(description.getTitle());
+        model.setSubtitle(description.getSubtitle());
+        model.setContent(description.getContent());
+        model.setArea(description.getArea().getName());
+        model.setService(description.getService().getName());
         // 日付変換
         String startDateString = "";
         String endDateString = "";
@@ -174,14 +143,9 @@ public class DetailAsyncTask extends AsyncTask<Void, Void, DescriptionListRoot> 
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        timeView.setText(startDateString + "～\n" + endDateString);
+        model.setTime(startDateString + "～\n" + endDateString);
+        model.setAct(description.getAct());
 
-        // 出演者
-        TextView actView = activity.findViewById(R.id.program_detail_act);
-        actView.setText(description.getAct());
-
-        // 番組ジャンル
-        TextView genreView = activity.findViewById(R.id.program_detail_genre);
         StringBuilder genreStrBuilder = new StringBuilder();
         for (String genre : description.getGenres()) {
             if (genreStrBuilder.length() != 0) {
@@ -189,30 +153,21 @@ public class DetailAsyncTask extends AsyncTask<Void, Void, DescriptionListRoot> 
             }
             genreStrBuilder.append(Const.GENRE_MAP_CODE.get(genre));
         }
-        genreView.setText(genreStrBuilder);
+        model.setGenre(genreStrBuilder.toString());
 
-        // 番組URL
-        TextView urlView = activity.findViewById(R.id.program_detail_program_url);
-        urlView.setAutoLinkMask(Linkify.WEB_URLS);
-        urlView.setText("http:" + description.getProgram_url());
+        model.setProgramUrl("http:" + description.getProgram_url());
+        model.setEpisodeUrl(description.getProgram_url());
 
-        // エピソードURL
-        TextView epiUrlView = activity.findViewById(R.id.program_detail_episode_url);
-        if (description.getEpisode_url() != null && !"".equals(description.getEpisode_url())) {
-            epiUrlView.setText("http:" + description.getEpisode_url());
-            epiUrlView.setAutoLinkMask(Linkify.WEB_URLS);
-        } else {
-            epiUrlView.setText("番組URL(放送回)なし");
-        }
-
-        // その他の情報
-        TextView extraView = activity.findViewById(R.id.program_detail_extras);
         if (description.getExtras() != null) {
-            extraView.setText(description.getExtras().getOndemand_program().getTitle());
-            extraView.setText(description.getExtras().getOndemand_episode().getTitle());
+            model.setExtras(
+                      description.getExtras().getOndemand_program().getTitle()
+                    + description.getExtras().getOndemand_episode().getTitle());
         } else {
-            extraView.setText("その他の情報なし");
+            model.setExtras("その他の情報なし");
         }
+
+        ActivityProgramDetailBinding binding = DataBindingUtil.setContentView(activity, R.layout.activity_program_detail);
+        binding.setProgram(model);
 
         // Googleカレンダーに登録を有効化
         Button calenderButton = activity.findViewById(R.id.program_detail_calender);
