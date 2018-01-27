@@ -14,10 +14,10 @@ import com.github.luecy1.nhkbangumi.Const;
 import com.github.luecy1.nhkbangumi.Loading;
 import com.github.luecy1.nhkbangumi.ProgramDetailActivity;
 import com.github.luecy1.nhkbangumi.R;
-import com.github.luecy1.nhkbangumi.databinding.ActivityProgramDetailBinding;
 import com.github.luecy1.nhkbangumi.entity.description.Description;
 import com.github.luecy1.nhkbangumi.entity.description.DescriptionListRoot;
 import com.github.luecy1.nhkbangumi.model.ProgramDetailModel;
+import com.github.luecy1.nhkbangumi.service.NhkService;
 import com.github.luecy1.nhkbangumi.util.CommonUtils;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
@@ -27,11 +27,14 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import retrofit2.Call;
+import retrofit2.Retrofit;
 
 /**
  * Created by you on 2017/12/16.
@@ -81,6 +84,7 @@ public class DetailAsyncTask extends AsyncTask<Void, Void, DescriptionListRoot> 
             Log.e("MyApp", "IOExceptionが発生しました。");
             e.printStackTrace();
         }
+
 
         return descriptionListRoot;
     }
@@ -155,8 +159,8 @@ public class DetailAsyncTask extends AsyncTask<Void, Void, DescriptionListRoot> 
         }
         model.setGenre(genreStrBuilder.toString());
 
-        model.setProgramUrl("http:" + description.getProgram_url());
-        model.setEpisodeUrl(description.getProgram_url());
+        model.setProgramUrl("https:" + description.getProgram_url());
+        model.setEpisodeUrl("https:" + description.getProgram_url());
 
         if (description.getExtras() != null) {
             model.setExtras(
@@ -166,8 +170,8 @@ public class DetailAsyncTask extends AsyncTask<Void, Void, DescriptionListRoot> 
             model.setExtras("その他の情報なし");
         }
 
-        ActivityProgramDetailBinding binding = DataBindingUtil.setContentView(activity, R.layout.activity_program_detail);
-        binding.setProgram(model);
+//        ActivityProgramDetailBinding binding = DataBindingUtil.setContentView(activity, R.layout.activity_program_detail);
+//        binding.setProgram(model);
 
         // Googleカレンダーに登録を有効化
         Button calenderButton = activity.findViewById(R.id.program_detail_calender);
