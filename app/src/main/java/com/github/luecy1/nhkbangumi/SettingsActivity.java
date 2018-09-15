@@ -217,7 +217,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                                         public void onClick(DialogInterface dialog, int which) {
                                             PreferenceManager.getDefaultSharedPreferences(getActivity()).edit().clear().commit();
                                             Toast.makeText(getActivity(),"設定を初期化しました。",Toast.LENGTH_SHORT).show();
-                                            SettingUtils.initSettings(getActivity());
+                                            SettingUtils.INSTANCE.initSettings(getActivity());
                                         }
                                     });
                             builder.setNegativeButton(android.R.string.cancel,null);

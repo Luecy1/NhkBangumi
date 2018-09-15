@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         if (AppLaunchChecker.hasStartedFromLauncher(this)) {
             // 2回目以降
         } else {
-            SettingUtils.initSettings(this);
+            SettingUtils.INSTANCE.initSettings(this);
         }
 
         // Loading

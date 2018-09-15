@@ -105,8 +105,8 @@ public class MainActivityListAdapter extends BaseAdapter {
         // 日付変換
         String startDateString = "";
         try {
-            Date startDate = CommonUtils.string2Date(program.getStart_time());
-            startDateString =  CommonUtils.date2String(startDate);
+            Date startDate = CommonUtils.INSTANCE.string2Date(program.getStart_time());
+            startDateString =  CommonUtils.INSTANCE.date2String(startDate);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -130,8 +130,8 @@ public class MainActivityListAdapter extends BaseAdapter {
 
             String prevDateStr = "";
             try {
-                Date startDate = CommonUtils.string2Date(prevProgram.getStart_time());
-                prevDateStr =  CommonUtils.date2String(startDate);
+                Date startDate = CommonUtils.INSTANCE.string2Date(prevProgram.getStart_time());
+                prevDateStr =  CommonUtils.INSTANCE.date2String(startDate);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -154,8 +154,8 @@ public class MainActivityListAdapter extends BaseAdapter {
 
             String followDateStr = "";
             try {
-                Date startDate = CommonUtils.string2Date(followProgram.getStart_time());
-                followDateStr =  CommonUtils.date2String(startDate);
+                Date startDate = CommonUtils.INSTANCE.string2Date(followProgram.getStart_time());
+                followDateStr =  CommonUtils.INSTANCE.date2String(startDate);
             } catch (ParseException e) {
                 e.printStackTrace();
             }

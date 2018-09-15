@@ -166,8 +166,8 @@ public class DetailAsyncTask extends AsyncTask<Void, Void, DescriptionListRoot> 
         String startDateString = "";
         String endDateString = "";
         try {
-            Date startDate = CommonUtils.string2Date(description.getStart_time());
-            Date endDate   = CommonUtils.string2Date(description.getEnd_time());
+            Date startDate = CommonUtils.INSTANCE.string2Date(description.getStart_time());
+            Date endDate   = CommonUtils.INSTANCE.string2Date(description.getEnd_time());
             SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月dd日 ah:mm:ss", Locale.JAPAN);
             startDateString =  format.format(startDate).toString();
             endDateString   =  format.format(endDate).toString();
@@ -223,8 +223,8 @@ public class DetailAsyncTask extends AsyncTask<Void, Void, DescriptionListRoot> 
                         Calendar startCal = Calendar.getInstance(Locale.JAPAN);
                         Calendar endCal   = Calendar.getInstance(Locale.JAPAN);
                         try {
-                            Date startDate = CommonUtils.string2Date(description.getStart_time());
-                            Date endDate   = CommonUtils.string2Date(description.getEnd_time());
+                            Date startDate = CommonUtils.INSTANCE.string2Date(description.getStart_time());
+                            Date endDate   = CommonUtils.INSTANCE.string2Date(description.getEnd_time());
 
                             startCal.setTime(startDate);
                             endCal.setTime(endDate);

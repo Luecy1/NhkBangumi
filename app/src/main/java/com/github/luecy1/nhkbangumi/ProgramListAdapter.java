@@ -122,7 +122,7 @@ public class ProgramListAdapter extends BaseAdapter {
         // 日付変換
         String startDateString = "";
         try {
-            Date startDate = CommonUtils.string2Date(program.getStart_time());
+            Date startDate = CommonUtils.INSTANCE.string2Date(program.getStart_time());
             SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月dd日 ah:mm:ss", Locale.JAPAN);
             startDateString =  format.format(startDate).toString();
         } catch (ParseException e) {
