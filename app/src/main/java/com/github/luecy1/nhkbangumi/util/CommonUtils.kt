@@ -34,4 +34,4 @@ object CommonUtils {
         val info = cm.activeNetworkInfo
         return info?.isConnected ?: false
     }
-}// no instance
+}
